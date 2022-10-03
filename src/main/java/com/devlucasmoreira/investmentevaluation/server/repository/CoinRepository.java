@@ -17,5 +17,7 @@ public interface CoinRepository extends JpaRepository<Coin, UUID> {
     @Query("SELECT SUM(c.amount) FROM Coin c")
     BigDecimal getTotalAmount();
 
+    boolean existsByName(String name);
+
 
 }
