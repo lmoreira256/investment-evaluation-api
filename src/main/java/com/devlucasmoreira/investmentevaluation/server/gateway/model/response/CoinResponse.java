@@ -6,23 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HistoricResponse {
+public class CoinResponse {
 
-    private BigDecimal value;
-
-    private OffsetDateTime date;
+    private String name;
 
     private BigDecimal amount;
 
-    private BigDecimal cashReturn;
-
-    private BigDecimal profitability;
+    private BigDecimal currentValue;
 
 }

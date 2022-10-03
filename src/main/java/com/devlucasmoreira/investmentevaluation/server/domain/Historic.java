@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
@@ -27,7 +28,7 @@ public class Historic {
     private BigDecimal value;
 
     @Column(name = "date")
-    private LocalDate date;
+    private OffsetDateTime date;
 
     @Column(name = "amount")
     private BigDecimal amount;
