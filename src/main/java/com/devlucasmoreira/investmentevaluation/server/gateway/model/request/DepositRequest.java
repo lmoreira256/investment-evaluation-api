@@ -1,4 +1,4 @@
-package com.devlucasmoreira.investmentevaluation.server.gateway.model.response;
+package com.devlucasmoreira.investmentevaluation.server.gateway.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,16 +12,10 @@ import java.time.OffsetDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HistoricResponse {
+public class DepositRequest {
 
     private BigDecimal value;
 
     private OffsetDateTime date;
-
-    private BigDecimal amount;
-
-    private BigDecimal cashReturn;
-
-    private BigDecimal profitability;
 
 }

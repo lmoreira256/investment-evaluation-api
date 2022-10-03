@@ -12,16 +12,10 @@ import java.time.OffsetDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HistoricResponse {
+public class DepositResponse {
 
     private BigDecimal value;
 
     private OffsetDateTime date;
-
-    private BigDecimal amount;
-
-    private BigDecimal cashReturn;
-
-    private BigDecimal profitability;
 
 }
