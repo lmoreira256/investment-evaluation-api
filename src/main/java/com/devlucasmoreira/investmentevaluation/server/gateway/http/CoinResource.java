@@ -40,7 +40,7 @@ public class CoinResource {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<CoinResponse>> list(
             @RequestParam(required = false) String name,
-            @PageableDefault(sort = "currentValue", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable pageable
+            @PageableDefault(sort = "currentValue", direction = Sort.Direction.DESC) Pageable pageable
     ) {
 
         return new ResponseEntity<>(coinListService.execute(name, pageable), HttpStatus.OK);

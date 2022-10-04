@@ -19,7 +19,7 @@ public class DepositResource {
     @Autowired
     private DepositCreateService depositCreateService;
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DepositResponse> create(@RequestBody DepositRequest depositRequest) {
 
         return new ResponseEntity<>(depositCreateService.execute(depositRequest), HttpStatus.CREATED);

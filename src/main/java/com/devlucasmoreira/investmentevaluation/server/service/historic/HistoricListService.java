@@ -5,9 +5,9 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.His
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.HistoricResponse;
 import com.devlucasmoreira.investmentevaluation.server.repository.HistoricRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class HistoricListService {
@@ -15,10 +15,10 @@ public class HistoricListService {
     @Autowired
     private HistoricRepository historicRepository;
 
-    public List<HistoricResponse> execute() {
-        List<Historic> historicList = historicRepository.findAll();
+    public Page<HistoricResponse> execute(Pageable pageable) {
+        Page<Historic> historicPage = historicRepository.findAll(pageable);
 
-        return HistoricFactory.buildResponseList(historicList);
+        return HistoricFactory.buildPageResponse(historicPage);
     }
 
 }
