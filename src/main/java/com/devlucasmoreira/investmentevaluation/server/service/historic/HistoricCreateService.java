@@ -7,12 +7,13 @@ import com.devlucasmoreira.investmentevaluation.server.repository.CoinRepository
 import com.devlucasmoreira.investmentevaluation.server.repository.DepositRepository;
 import com.devlucasmoreira.investmentevaluation.server.repository.HistoricRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 @Service
 public class HistoricCreateService {
@@ -25,6 +26,9 @@ public class HistoricCreateService {
 
     @Autowired
     private DepositRepository depositRepository;
+
+    @Autowired
+    private CacheManager cacheManager;
 
     public HistoricResponse execute() {
         BigDecimal totalCurrentValue = coinRepository.getTotalCurrentValue();
@@ -43,6 +47,7 @@ public class HistoricCreateService {
 
         historicRepository.save(historic);
 
+        Objects.requireNonNull(cacheManager.getCache("historicList")).clear();
         return HistoricFactory.buildResponse(historic);
     }
 

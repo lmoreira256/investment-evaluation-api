@@ -17,6 +17,7 @@ public class CoinFactory {
 
     public static CoinResponse buildResponse(Coin coin) {
         return CoinResponse.builder()
+                .id(coin.getId())
                 .amount(coin.getAmount())
                 .currentValue(coin.getCurrentValue())
                 .name(coin.getName())

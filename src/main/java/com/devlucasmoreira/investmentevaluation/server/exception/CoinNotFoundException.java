@@ -4,11 +4,11 @@ import com.devlucasmoreira.investmentevaluation.server.enums.ErrorMessageEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.SEE_OTHER)
-public class CoinAlreadyExistsException extends StandardException {
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class CoinNotFoundException extends StandardException {
 
-    public CoinAlreadyExistsException() {
-        super(ErrorMessageEnum.COIN_ALREADY_EXISTS.getMessage(), HttpStatus.SEE_OTHER.value());
+    public CoinNotFoundException() {
+        super(ErrorMessageEnum.COIN_NOT_FOUND.getMessage(), HttpStatus.NOT_FOUND.value());
     }
 
 }
