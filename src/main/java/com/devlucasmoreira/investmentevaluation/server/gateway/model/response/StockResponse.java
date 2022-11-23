@@ -30,6 +30,8 @@ public class StockResponse {
 
     private BigDecimal profitability;
 
+    private BigDecimal purchaseValue;
+
     private BigDecimal averagePurchase;
 
     private StockTypeEnum stockType;

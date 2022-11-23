@@ -3,6 +3,7 @@ package com.devlucasmoreira.investmentevaluation.server.gateway.model.factory;
 import com.devlucasmoreira.investmentevaluation.server.domain.Stock;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.StockRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.StockResponse;
+import org.springframework.data.domain.Page;
 
 public class StockFactory {
 
@@ -27,11 +28,16 @@ public class StockFactory {
                 .currentValue(stock.getCurrentValue())
                 .cashReturn(stock.getCashReturn())
                 .profitability(stock.getProfitability())
+                .purchaseValue(stock.getPurchaseValue())
                 .averagePurchase(stock.getAveragePurchase())
                 .stockType(stock.getStockType())
                 .createdAt(stock.getCreatedAt())
                 .updatedAt(stock.getUpdatedAt())
                 .build();
+    }
+
+    public static Page<StockResponse> buildPageResponse(Page<Stock> stockPage) {
+        return stockPage.map(StockFactory::buildResponse);
     }
 
 }

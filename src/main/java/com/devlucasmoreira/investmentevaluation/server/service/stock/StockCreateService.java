@@ -7,11 +7,12 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.Sto
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.StockResponse;
 import com.devlucasmoreira.investmentevaluation.server.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 @Service
 public class StockCreateService {
@@ -19,12 +20,14 @@ public class StockCreateService {
     @Autowired
     private StockRepository stockRepository;
 
+    @Autowired
+    private CacheManager cacheManager;
+
     public StockResponse execute(StockRequest stockRequest) {
         validateStock(stockRequest);
 
         Stock stock = StockFactory.build(stockRequest);
 
-        MathContext mc = new MathContext(2);
         BigDecimal currentValue = stock.getCurrentValue();
         BigDecimal purchaseValue = stock.getPurchaseValue();
         BigDecimal profit = currentValue.subtract(purchaseValue);
@@ -34,6 +37,7 @@ public class StockCreateService {
         stock.setCashReturn(profit);
         stock.setProfitability(profitability);
 
+        Objects.requireNonNull(cacheManager.getCache("stockList")).clear();
         return StockFactory.buildResponse(stockRepository.save(stock));
     }
 
