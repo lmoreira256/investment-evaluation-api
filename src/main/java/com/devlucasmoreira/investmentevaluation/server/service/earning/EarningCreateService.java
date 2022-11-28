@@ -8,7 +8,10 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.Ea
 import com.devlucasmoreira.investmentevaluation.server.repository.EarningRepository;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class EarningCreateService {
@@ -19,10 +22,14 @@ public class EarningCreateService {
     @Autowired
     private EarningRepository earningRepository;
 
+    @Autowired
+    private CacheManager cacheManager;
+
     public EarningResponse execute(EarningRequest earningRequest) {
         Stock stock = stockGetByIdService.execute(earningRequest.getIdStock());
         Earning earning = EarningFactory.build(earningRequest, stock);
 
+        Objects.requireNonNull(cacheManager.getCache("earningList")).clear();
         return EarningFactory.buildResponse(earningRepository.save(earning));
     }
 

@@ -4,6 +4,7 @@ import com.devlucasmoreira.investmentevaluation.server.domain.Earning;
 import com.devlucasmoreira.investmentevaluation.server.domain.Stock;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.EarningRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningResponse;
+import org.springframework.data.domain.Page;
 
 public class EarningFactory {
 
@@ -24,6 +25,10 @@ public class EarningFactory {
                 .id(earning.getId())
                 .idStock(earning.getStock().getId())
                 .build();
+    }
+
+    public static Page<EarningResponse> buildPageResponse(Page<Earning> earningPage) {
+        return earningPage.map(EarningFactory::buildResponse);
     }
 
 }
