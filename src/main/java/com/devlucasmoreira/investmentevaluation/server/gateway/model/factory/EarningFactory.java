@@ -23,7 +23,7 @@ public class EarningFactory {
                 .currentValue(earning.getCurrentValue())
                 .description(earning.getDescription())
                 .id(earning.getId())
-                .idStock(earning.getStock().getId())
+                .stockName(earning.getStock().getActive())
                 .build();
     }
 

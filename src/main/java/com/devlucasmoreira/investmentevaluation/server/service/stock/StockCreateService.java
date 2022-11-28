@@ -31,8 +31,9 @@ public class StockCreateService {
         BigDecimal currentValue = stock.getCurrentValue();
         BigDecimal purchaseValue = stock.getPurchaseValue();
         BigDecimal profit = currentValue.subtract(purchaseValue);
-        BigDecimal profitability = currentValue.multiply(new BigDecimal(100))
-                .divide(purchaseValue, 2, RoundingMode.HALF_UP).subtract(new BigDecimal(100));
+        BigDecimal profitability = currentValue.equals(BigDecimal.ZERO) ? BigDecimal.ZERO :
+                currentValue.multiply(new BigDecimal(100))
+                        .divide(purchaseValue, 2, RoundingMode.HALF_UP).subtract(new BigDecimal(100));
 
         stock.setCashReturn(profit);
         stock.setProfitability(profitability);

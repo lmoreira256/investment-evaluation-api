@@ -18,6 +18,8 @@ public class EarningRequest {
 
     private UUID idStock;
 
+    private String stockName;
+
     private BigDecimal currentValue;
 
     private String description;

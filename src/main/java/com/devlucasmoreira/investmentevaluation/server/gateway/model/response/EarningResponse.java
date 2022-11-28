@@ -17,7 +17,7 @@ public class EarningResponse {
 
     private UUID id;
 
-    private UUID idStock;
+    private String stockName;
 
     private BigDecimal currentValue;
 
