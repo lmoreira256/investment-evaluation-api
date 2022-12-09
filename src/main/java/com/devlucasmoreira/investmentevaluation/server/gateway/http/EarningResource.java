@@ -2,8 +2,10 @@ package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.EarningRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningResponse;
+import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningSummaryResponse;
 import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningCreateService;
 import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningListService;
+import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningSummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -30,6 +32,9 @@ public class EarningResource {
     @Autowired
     private EarningListService earningListService;
 
+    @Autowired
+    private EarningSummaryService earningSummaryService;
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EarningResponse> create(@RequestBody EarningRequest earningRequest) {
 
@@ -44,6 +49,13 @@ public class EarningResource {
     ) {
 
         return new ResponseEntity<>(earningListService.execute(active, pageable), HttpStatus.OK);
+    }
+
+    @Cacheable(value = "earningSummary")
+    @GetMapping(value = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EarningSummaryResponse> summary() {
+
+        return new ResponseEntity<>(earningSummaryService.execute(), HttpStatus.OK);
     }
 
 }
