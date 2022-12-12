@@ -4,6 +4,7 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.Sto
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.StockResponse;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockCreateService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockListService;
+import com.devlucasmoreira.investmentevaluation.server.service.stock.StockUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -14,11 +15,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/stock")
@@ -29,6 +34,9 @@ public class StockResource {
 
     @Autowired
     private StockListService stockListService;
+
+    @Autowired
+    private StockUpdateService stockUpdateService;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockResponse> create(@RequestBody StockRequest stockRequest) {
@@ -44,6 +52,12 @@ public class StockResource {
     ) {
 
         return new ResponseEntity<>(stockListService.execute(active, pageable), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StockResponse> update(@PathVariable("id") UUID id, @RequestBody StockRequest stockRequest) {
+
+        return new ResponseEntity<>(stockUpdateService.execute(id, stockRequest), HttpStatus.OK);
     }
 
 }

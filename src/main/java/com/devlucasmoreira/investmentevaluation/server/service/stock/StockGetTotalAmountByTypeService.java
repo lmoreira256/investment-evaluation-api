@@ -5,14 +5,16 @@ import com.devlucasmoreira.investmentevaluation.server.repository.StockRepositor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StockGetTotalAmountByTypeService {
 
     @Autowired
     private StockRepository stockRepository;
 
-    public Integer execute(StockTypeEnum stockTypeEnum) {
-        return stockRepository.getTotalAmountByType(stockTypeEnum);
+    public Integer execute(List<StockTypeEnum> stockTypeEnumList) {
+        return stockRepository.getTotalAmountByType(stockTypeEnumList);
     }
 
 }

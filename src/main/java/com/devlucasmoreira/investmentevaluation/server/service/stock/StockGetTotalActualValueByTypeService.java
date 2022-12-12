@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class StockGetTotalActualValueByTypeService {
@@ -13,8 +14,8 @@ public class StockGetTotalActualValueByTypeService {
     @Autowired
     private StockRepository stockRepository;
 
-    public BigDecimal execute(StockTypeEnum stockTypeEnum) {
-        return stockRepository.getTotalActualValueByType(stockTypeEnum);
+    public BigDecimal execute(List<StockTypeEnum> stockTypeEnumList) {
+        return stockRepository.getTotalActualValueByType(stockTypeEnumList);
     }
 
 }

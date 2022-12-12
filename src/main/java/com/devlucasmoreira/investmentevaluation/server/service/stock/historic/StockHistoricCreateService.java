@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -36,18 +37,20 @@ public class StockHistoricCreateService {
     private CacheManager cacheManager;
 
     public StockHistoricCreationResponse execute() {
-        StockHistoric stockHistoricStock = createStockHistoric(StockTypeEnum.STOCK, StockHistoricTypeEnum.STOCK);
-        StockHistoric stockHistoricRealEstateFund = createStockHistoric(StockTypeEnum.REAL_ESTATE_FUND, StockHistoricTypeEnum.REAL_ESTATE_FUND);
+        StockHistoric stockHistoricStock = createStockHistoric(
+                Arrays.asList(StockTypeEnum.STOCK, StockTypeEnum.BDR), StockHistoricTypeEnum.STOCK);
+        StockHistoric stockHistoricRealEstateFund = createStockHistoric(
+                Arrays.asList(StockTypeEnum.REAL_ESTATE_FUND), StockHistoricTypeEnum.REAL_ESTATE_FUND);
         StockHistoric stockHistoricGeneral = createGeneralStockHistoric(stockHistoricStock, stockHistoricRealEstateFund);
 
         Objects.requireNonNull(cacheManager.getCache("stockHistoricList")).clear();
         return StockHistoricFactory.buildResponse(Arrays.asList(stockHistoricStock, stockHistoricRealEstateFund, stockHistoricGeneral));
     }
 
-    private StockHistoric createStockHistoric(StockTypeEnum stockTypeEnum, StockHistoricTypeEnum stockHistoricTypeEnum) {
-        Integer amount = stockGetTotalAmountByTypeService.execute(stockTypeEnum);
-        BigDecimal purchaseValue = stockGetTotalPurchaseValueByTypeService.execute(stockTypeEnum);
-        BigDecimal actualValue = stockGetTotalActualValueByTypeService.execute(stockTypeEnum);
+    private StockHistoric createStockHistoric(List<StockTypeEnum> stockTypeEnumList, StockHistoricTypeEnum stockHistoricTypeEnum) {
+        Integer amount = stockGetTotalAmountByTypeService.execute(stockTypeEnumList);
+        BigDecimal purchaseValue = stockGetTotalPurchaseValueByTypeService.execute(stockTypeEnumList);
+        BigDecimal actualValue = stockGetTotalActualValueByTypeService.execute(stockTypeEnumList);
 
         return stockHistoricRepository.save(StockHistoricFactory.build(actualValue, purchaseValue, amount, stockHistoricTypeEnum));
     }

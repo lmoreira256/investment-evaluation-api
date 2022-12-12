@@ -1,7 +1,7 @@
 package com.devlucasmoreira.investmentevaluation.server.service.stock;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.Stock;
-import com.devlucasmoreira.investmentevaluation.server.exception.StockAlreadyExistsException;
+import com.devlucasmoreira.investmentevaluation.server.exception.StockNotFoundException;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.StockFactory;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.StockRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.StockResponse;
@@ -11,9 +11,10 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
-public class StockCreateService {
+public class StockUpdateService {
 
     @Autowired
     private StockRepository stockRepository;
@@ -24,20 +25,33 @@ public class StockCreateService {
     @Autowired
     private StockUpdateValuesService stockUpdateValuesService;
 
-    public StockResponse execute(StockRequest stockRequest) {
-        validateStock(stockRequest);
+    public StockResponse execute(UUID id, StockRequest stockRequest) {
+        Stock stock = stockRepository.findById(id).orElseThrow(StockNotFoundException::new);
 
-        Stock stock = StockFactory.build(stockRequest);
+        if (stockRequest.getAmount() != null) {
+            stock.setAmount(stockRequest.getAmount());
+        }
+
+        if (stockRequest.getDescription() != null) {
+            stock.setDescription(stockRequest.getDescription());
+        }
+
+        if (stockRequest.getCurrentValue() != null) {
+            stock.setCurrentValue(stockRequest.getCurrentValue());
+        }
+
+        if (stockRequest.getPurchaseValue() != null) {
+            stock.setPurchaseValue(stockRequest.getPurchaseValue());
+        }
+
+        if (stockRequest.getAveragePurchase() != null) {
+            stock.setAveragePurchase(stockRequest.getAveragePurchase());
+        }
+
         stock = stockUpdateValuesService.execute(stock);
 
         Objects.requireNonNull(cacheManager.getCache("stockList")).clear();
         return StockFactory.buildResponse(stockRepository.save(stock));
-    }
-
-    private void validateStock(StockRequest stockRequest) {
-        if (stockRepository.existsByActive(stockRequest.getActive())) {
-            throw new StockAlreadyExistsException();
-        }
     }
 
 }

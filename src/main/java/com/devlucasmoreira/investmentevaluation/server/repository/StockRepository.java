@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,13 +25,13 @@ public interface StockRepository extends JpaRepository<Stock, UUID> {
     @Query("SELECT s FROM Stock s WHERE UPPER(s.active) LIKE %:active%")
     Optional<Stock> findByActive(@Param("active") String active);
 
-    @Query("SELECT SUM(s.amount) FROM Stock s WHERE s.stockType = :stockType")
-    Integer getTotalAmountByType(@Param("stockType") StockTypeEnum stockType);
+    @Query("SELECT SUM(s.amount) FROM Stock s WHERE s.stockType IN (:stockTypeList)")
+    Integer getTotalAmountByType(@Param("stockTypeList") List<StockTypeEnum> stockTypeList);
 
-    @Query("SELECT SUM(s.purchaseValue) FROM Stock s WHERE s.stockType = :stockType")
-    BigDecimal getTotalPurchaseValueByType(@Param("stockType") StockTypeEnum stockType);
+    @Query("SELECT SUM(s.purchaseValue) FROM Stock s WHERE s.stockType IN (:stockTypeList)")
+    BigDecimal getTotalPurchaseValueByType(@Param("stockTypeList") List<StockTypeEnum> stockTypeList);
 
-    @Query("SELECT SUM(s.currentValue) FROM Stock s WHERE s.stockType = :stockType")
-    BigDecimal getTotalActualValueByType(@Param("stockType") StockTypeEnum stockType);
+    @Query("SELECT SUM(s.currentValue) FROM Stock s WHERE s.stockType IN (:stockTypeList)")
+    BigDecimal getTotalActualValueByType(@Param("stockTypeList") List<StockTypeEnum> stockTypeList);
 
 }
