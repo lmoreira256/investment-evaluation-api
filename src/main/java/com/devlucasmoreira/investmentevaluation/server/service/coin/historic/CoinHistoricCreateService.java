@@ -3,8 +3,8 @@ package com.devlucasmoreira.investmentevaluation.server.service.coin.historic;
 import com.devlucasmoreira.investmentevaluation.server.domain.CoinHistoric;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.CoinHistoricFactory;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.CoinHistoricResponse;
+import com.devlucasmoreira.investmentevaluation.server.repository.CoinHistoricRepository;
 import com.devlucasmoreira.investmentevaluation.server.repository.CoinRepository;
-import com.devlucasmoreira.investmentevaluation.server.repository.HistoricRepository;
 import com.devlucasmoreira.investmentevaluation.server.service.deposit.DepositGetTotalValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class CoinHistoricCreateService {
 
     @Autowired
-    private HistoricRepository historicRepository;
+    private CoinHistoricRepository coinHistoricRepository;
 
     @Autowired
     private CoinRepository coinRepository;
@@ -36,7 +36,7 @@ public class CoinHistoricCreateService {
 
         CoinHistoric coinHistoric = CoinHistoricFactory.build(amount, actualValue, cashReturn, totalValueDeposit);
 
-        historicRepository.save(coinHistoric);
+        coinHistoricRepository.save(coinHistoric);
 
         Objects.requireNonNull(cacheManager.getCache("coinHistoricList")).clear();
         return CoinHistoricFactory.buildResponse(coinHistoric);
