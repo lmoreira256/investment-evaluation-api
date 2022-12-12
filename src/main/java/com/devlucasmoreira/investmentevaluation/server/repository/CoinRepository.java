@@ -15,10 +15,10 @@ import java.util.UUID;
 public interface CoinRepository extends JpaRepository<Coin, UUID> {
 
     @Query("SELECT SUM(c.currentValue) FROM Coin c")
-    BigDecimal getTotalCurrentValue();
+    BigDecimal getActualValue();
 
     @Query("SELECT SUM(c.amount) FROM Coin c")
-    BigDecimal getTotalAmount();
+    BigDecimal getAmount();
 
     boolean existsByName(String name);
 

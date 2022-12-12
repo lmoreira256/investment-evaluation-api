@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -20,19 +20,19 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "historic")
-public class Historic {
+@Table(name = "coin_historic")
+public class CoinHistoric {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "value")
-    private BigDecimal value;
+    @Column(name = "actual_value")
+    private BigDecimal actualValue;
 
-    @Column(name = "date")
-    private OffsetDateTime date;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @Column(name = "amount")
     private BigDecimal amount;

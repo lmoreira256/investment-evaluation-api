@@ -1,8 +1,8 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
-import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.HistoricResponse;
-import com.devlucasmoreira.investmentevaluation.server.service.historic.HistoricCreateService;
-import com.devlucasmoreira.investmentevaluation.server.service.historic.HistoricListService;
+import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.CoinHistoricResponse;
+import com.devlucasmoreira.investmentevaluation.server.service.coin.historic.CoinHistoricCreateService;
+import com.devlucasmoreira.investmentevaluation.server.service.coin.historic.CoinHistoricListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -18,28 +18,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/historic")
-public class HistoricResource {
+@RequestMapping("/coin/historic")
+public class CoinHistoricResource {
 
     @Autowired
-    private HistoricListService historicListService;
+    private CoinHistoricListService coinHistoricListService;
 
     @Autowired
-    private HistoricCreateService historicCreateService;
+    private CoinHistoricCreateService coinHistoricCreateService;
 
-    @Cacheable("historicList")
+    @Cacheable("coinHistoricList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<HistoricResponse>> list(
-            @PageableDefault(sort = "date", direction = Sort.Direction.DESC) Pageable pageable
+    public ResponseEntity<Page<CoinHistoricResponse>> list(
+            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
 
-        return new ResponseEntity<>(historicListService.execute(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(coinHistoricListService.execute(pageable), HttpStatus.OK);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HistoricResponse> create() {
+    public ResponseEntity<CoinHistoricResponse> create() {
 
-        return new ResponseEntity<>(historicCreateService.execute(), HttpStatus.CREATED);
+        return new ResponseEntity<>(coinHistoricCreateService.execute(), HttpStatus.CREATED);
     }
 
 }
