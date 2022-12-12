@@ -40,7 +40,7 @@ public class StockHistoricCreateService {
         StockHistoric stockHistoricStock = createStockHistoric(
                 Arrays.asList(StockTypeEnum.STOCK, StockTypeEnum.BDR), StockHistoricTypeEnum.STOCK);
         StockHistoric stockHistoricRealEstateFund = createStockHistoric(
-                Arrays.asList(StockTypeEnum.REAL_ESTATE_FUND), StockHistoricTypeEnum.REAL_ESTATE_FUND);
+                List.of(StockTypeEnum.REAL_ESTATE_FUND), StockHistoricTypeEnum.REAL_ESTATE_FUND);
         StockHistoric stockHistoricGeneral = createGeneralStockHistoric(stockHistoricStock, stockHistoricRealEstateFund);
 
         Objects.requireNonNull(cacheManager.getCache("stockHistoricList")).clear();
