@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class StockHistoricFactory {
 
     public static StockHistoric build(BigDecimal actualValue, BigDecimal purchaseValue, Integer amount, StockHistoricTypeEnum historicType) {
-        MathContext mc = new MathContext(3);
+        MathContext mc = new MathContext(2);
         BigDecimal cashReturn = actualValue.subtract(purchaseValue);
         BigDecimal profitability = cashReturn.multiply(new BigDecimal(100)).divide(purchaseValue, mc);
 
