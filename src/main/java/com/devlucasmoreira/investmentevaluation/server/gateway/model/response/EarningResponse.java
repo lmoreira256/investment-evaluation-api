@@ -24,6 +24,6 @@ public class EarningResponse {
 
     private String description;
 
-    private LocalDateTime createdAt;
+    private LocalDate payday;
 
 }

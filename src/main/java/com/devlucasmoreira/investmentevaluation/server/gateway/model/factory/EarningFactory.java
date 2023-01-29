@@ -23,7 +23,7 @@ public class EarningFactory {
 
     public static EarningResponse buildResponse(Earning earning) {
         return EarningResponse.builder()
-                .createdAt(earning.getCreatedAt())
+                .payday(earning.getPayday())
                 .currentValue(earning.getAmountPaid())
                 .description(earning.getDescription())
                 .id(earning.getId())
