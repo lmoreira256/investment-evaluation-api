@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,15 +49,15 @@ public class EarningSummaryService {
         String active = earning.getStock().getActive();
 
         if (earningSummaryResponse.getEarningStockSummary().isEmpty()) {
-            newEarningStockSummary(active, earning.getCurrentValue(), earningSummaryResponse);
+            newEarningStockSummary(active, earning.getAmountPaid(), earningSummaryResponse);
         } else {
             EarningStockSummaryResponse earningStockSummaryResponse = earningSummaryResponse.getEarningStockSummary()
                     .stream().filter(x -> x.getActive().equals(active)).findFirst().orElse(null);
 
             if (earningStockSummaryResponse == null) {
-                newEarningStockSummary(active, earning.getCurrentValue(), earningSummaryResponse);
+                newEarningStockSummary(active, earning.getAmountPaid(), earningSummaryResponse);
             } else {
-                earningStockSummaryResponse.setTotalValue(earningStockSummaryResponse.getTotalValue().add(earning.getCurrentValue()));
+                earningStockSummaryResponse.setTotalValue(earningStockSummaryResponse.getTotalValue().add(earning.getAmountPaid()));
             }
         }
     }
@@ -70,15 +71,15 @@ public class EarningSummaryService {
         String month = mountMouth(earning.getCreatedAt());
 
         if (earningSummaryResponse.getEarningStockSummary().isEmpty()) {
-            newEarningMonthSummary(month, earning.getCurrentValue(), earningSummaryResponse);
+            newEarningMonthSummary(month, earning.getAmountPaid(), earningSummaryResponse);
         } else {
             EarningMonthSummaryResponse earningMonthSummaryResponse = earningSummaryResponse.getEarningMonthSummary()
                     .stream().filter(x -> x.getMonth().equals(month)).findFirst().orElse(null);
 
             if (earningMonthSummaryResponse == null) {
-                newEarningMonthSummary(month, earning.getCurrentValue(), earningSummaryResponse);
+                newEarningMonthSummary(month, earning.getAmountPaid(), earningSummaryResponse);
             } else {
-                earningMonthSummaryResponse.setTotalValue(earningMonthSummaryResponse.getTotalValue().add(earning.getCurrentValue()));
+                earningMonthSummaryResponse.setTotalValue(earningMonthSummaryResponse.getTotalValue().add(earning.getAmountPaid()));
             }
         }
     }
@@ -88,7 +89,7 @@ public class EarningSummaryService {
         earningSummaryResponse.getEarningMonthSummary().add(earningMonthSummaryResponse);
     }
 
-    private String mountMouth(LocalDate localDate) {
+    private String mountMouth(LocalDateTime localDate) {
         String monthDescription = localDate.getMonth().getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
         return StringUtils.capitalize(monthDescription).concat("/").concat(String.valueOf(localDate.getYear()));
     }

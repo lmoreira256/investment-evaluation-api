@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -35,13 +37,17 @@ public class Earning {
     @JoinColumn(name = "id_stock", referencedColumnName = "id")
     private Stock stock;
 
-    @Column(name = "current_value")
-    private BigDecimal currentValue;
+    @Column(name = "amount_paid")
+    private BigDecimal amountPaid;
 
     @Column(name = "description")
     private String description;
 
+    @Column(name = "payday")
+    private LocalDate payday;
+
+    @CreationTimestamp
     @Column(name = "created_at")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
 }

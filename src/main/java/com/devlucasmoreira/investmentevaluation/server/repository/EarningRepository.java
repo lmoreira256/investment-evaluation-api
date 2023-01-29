@@ -20,7 +20,7 @@ public interface EarningRepository extends JpaRepository<Earning, UUID> {
 
     List<Earning> findAllByOrderByCreatedAtDesc();
 
-    @Query("SELECT SUM(e.currentValue) FROM Earning e")
+    @Query("SELECT SUM(e.amountPaid) FROM Earning e")
     BigDecimal getTotalValue();
 
 }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -25,6 +26,6 @@ public class EarningRequest {
     private String description;
 
     @JsonFormat(pattern = "dd/MM/yyyy", timezone = "Brazil/East")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
 }

@@ -15,7 +15,7 @@ public class EarningFactory {
     public static Earning build(EarningRequest earningRequest, Stock stock) {
         return Earning.builder()
                 .createdAt(earningRequest.getCreatedAt())
-                .currentValue(earningRequest.getCurrentValue())
+                .amountPaid(earningRequest.getCurrentValue())
                 .description(earningRequest.getDescription())
                 .stock(stock)
                 .build();
@@ -24,7 +24,7 @@ public class EarningFactory {
     public static EarningResponse buildResponse(Earning earning) {
         return EarningResponse.builder()
                 .createdAt(earning.getCreatedAt())
-                .currentValue(earning.getCurrentValue())
+                .currentValue(earning.getAmountPaid())
                 .description(earning.getDescription())
                 .id(earning.getId())
                 .stockName(earning.getStock().getActive())
