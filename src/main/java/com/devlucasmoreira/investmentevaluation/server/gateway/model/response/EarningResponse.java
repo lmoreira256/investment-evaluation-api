@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -20,7 +19,7 @@ public class EarningResponse {
 
     private String stockName;
 
-    private BigDecimal currentValue;
+    private BigDecimal amountPaid;
 
     private String description;
 
