@@ -1,13 +1,15 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.model.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -24,7 +26,6 @@ public class EarningRequest {
 
     private String description;
 
-    @JsonFormat(pattern = "dd/MM/yyyy", timezone = "Brazil/East")
-    private LocalDate payday;
+    private LocalDateTime payday;
 
 }

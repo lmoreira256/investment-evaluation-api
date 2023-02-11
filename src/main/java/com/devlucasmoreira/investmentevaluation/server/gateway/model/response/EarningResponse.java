@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -23,6 +23,6 @@ public class EarningResponse {
 
     private String description;
 
-    private LocalDate payday;
+    private LocalDateTime payday;
 
 }

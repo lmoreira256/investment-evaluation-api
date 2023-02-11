@@ -3,6 +3,7 @@ package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.StockRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.StockResponse;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockCreateService;
+import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetResponseByIdService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockListService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class StockResource {
     @Autowired
     private StockUpdateService stockUpdateService;
 
+    @Autowired
+    private StockGetResponseByIdService stockGetResponseByIdService;
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockResponse> create(@RequestBody StockRequest stockRequest) {
 
@@ -58,6 +62,12 @@ public class StockResource {
     public ResponseEntity<StockResponse> update(@PathVariable("id") UUID id, @RequestBody StockRequest stockRequest) {
 
         return new ResponseEntity<>(stockUpdateService.execute(id, stockRequest), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StockResponse> get(@PathVariable("id") UUID id) {
+
+        return new ResponseEntity<>(stockGetResponseByIdService.execute(id), HttpStatus.OK);
     }
 
 }
