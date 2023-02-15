@@ -15,6 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,22 +49,25 @@ public class StockResource {
         return new ResponseEntity<>(stockCreateService.execute(stockRequest), HttpStatus.CREATED);
     }
 
+    @CrossOrigin
     @Cacheable(value = "stockList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<StockResponse>> list(
             @RequestParam(required = false) String active,
-            @PageableDefault(sort = "currentValue", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(sort = "active") Pageable pageable
     ) {
 
         return new ResponseEntity<>(stockListService.execute(active, pageable), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockResponse> update(@PathVariable("id") UUID id, @RequestBody StockRequest stockRequest) {
 
         return new ResponseEntity<>(stockUpdateService.execute(id, stockRequest), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockResponse> get(@PathVariable("id") UUID id) {
 
