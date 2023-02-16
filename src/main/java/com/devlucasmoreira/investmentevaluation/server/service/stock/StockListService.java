@@ -17,7 +17,7 @@ public class StockListService {
 
     public Page<StockResponse> execute(String active, Pageable pageable) {
         Page<Stock> stockPage = active == null || active.length() == 0
-                ? stockRepository.findAll(pageable) : stockRepository.findByActive(active.toUpperCase(), pageable);
+                ? stockRepository.findByShow(true, pageable) : stockRepository.findByActive(active.toUpperCase(), pageable);
 
         return StockFactory.buildPageResponse(stockPage);
     }

@@ -69,4 +69,7 @@ public class Stock {
     @Column(name = "updated_at")
     private OffsetDateTime updatedAt;
 
+    @Column(name = "show")
+    private Boolean show;
+
 }
