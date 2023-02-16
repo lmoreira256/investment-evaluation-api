@@ -39,6 +39,7 @@ public class StockHistoricResource {
         return new ResponseEntity<>(stockHistoricListService.execute(pageable), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockHistoricCreationResponse> create() {
 
