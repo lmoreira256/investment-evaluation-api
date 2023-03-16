@@ -24,6 +24,8 @@ public interface StockRepository extends JpaRepository<Stock, UUID> {
 
     Page<Stock> findByShow(Boolean show, Pageable pageable);
 
+    List<Stock> findByShowOrderByActiveAsc(Boolean show);
+
     @Query("SELECT s FROM Stock s WHERE UPPER(s.active) LIKE %:active%")
     Optional<Stock> findByActive(@Param("active") String active);
 

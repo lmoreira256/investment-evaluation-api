@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StockListService {
 
@@ -20,6 +22,11 @@ public class StockListService {
                 ? stockRepository.findByShow(true, pageable) : stockRepository.findByActive(active.toUpperCase(), pageable);
 
         return StockFactory.buildPageResponse(stockPage);
+    }
+
+    public List<Stock> execute() {
+
+        return stockRepository.findByShowOrderByActiveAsc(true);
     }
 
 }
