@@ -2,8 +2,6 @@ package com.devlucasmoreira.investmentevaluation.server.repository;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.Stock;
 import com.devlucasmoreira.investmentevaluation.server.enums.StockTypeEnum;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,11 +16,6 @@ import java.util.UUID;
 public interface StockRepository extends JpaRepository<Stock, UUID> {
 
     boolean existsByActive(String active);
-
-    @Query("SELECT s FROM Stock s WHERE UPPER(s.active) LIKE %:active%")
-    Page<Stock> findByActive(@Param("active") String active, Pageable pageable);
-
-    Page<Stock> findByShow(Boolean show, Pageable pageable);
 
     List<Stock> findByShowOrderByActiveAsc(Boolean show);
 
