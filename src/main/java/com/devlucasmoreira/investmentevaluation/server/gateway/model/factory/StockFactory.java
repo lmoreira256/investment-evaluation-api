@@ -5,6 +5,9 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.Sto
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.StockResponse;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class StockFactory {
 
     public static Stock build(StockRequest stockRequest) {
@@ -38,6 +41,10 @@ public class StockFactory {
 
     public static Page<StockResponse> buildPageResponse(Page<Stock> stockPage) {
         return stockPage.map(StockFactory::buildResponse);
+    }
+
+    public static List<StockResponse> buildPageResponse(List<Stock> stockList) {
+        return stockList.stream().map(StockFactory::buildResponse).collect(Collectors.toList());
     }
 
 }
