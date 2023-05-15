@@ -6,7 +6,6 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.Ear
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.EarningRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningResponse;
 import com.devlucasmoreira.investmentevaluation.server.repository.EarningRepository;
-import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetByActiveService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -19,9 +18,6 @@ public class EarningCreateService {
 
     @Autowired
     private StockGetByIdService stockGetByIdService;
-
-    @Autowired
-    private StockGetByActiveService stockGetByActiveService;
 
     @Autowired
     private EarningRepository earningRepository;
