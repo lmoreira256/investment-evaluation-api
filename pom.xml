@@ -13,7 +13,6 @@
     <groupId>com.devlucasmoreira</groupId>
     <artifactId>investment-evaluation-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
     <name>Investment Evaluation Server</name>
     <description>Sistema para avaliação de investimento</description>
 

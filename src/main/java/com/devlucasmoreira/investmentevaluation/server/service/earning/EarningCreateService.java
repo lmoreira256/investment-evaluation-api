@@ -30,8 +30,8 @@ public class EarningCreateService {
     private CacheManager cacheManager;
 
     public EarningResponse execute(EarningRequest earningRequest) {
-        Stock stock = earningRequest.getIdStock() != null ?
-                stockGetByIdService.execute(earningRequest.getIdStock()) :
+        Stock stock = Objects.nonNull(earningRequest.getStockId()) ?
+                stockGetByIdService.execute(earningRequest.getStockId()) :
                 stockGetByActiveService.execute(earningRequest.getStockName());
         Earning earning = EarningFactory.build(earningRequest, stock);
 

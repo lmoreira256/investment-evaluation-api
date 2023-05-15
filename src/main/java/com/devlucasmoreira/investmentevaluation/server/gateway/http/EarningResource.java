@@ -36,6 +36,7 @@ public class EarningResource {
     @Autowired
     private EarningSummaryService earningSummaryService;
 
+    @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EarningResponse> create(@RequestBody EarningRequest earningRequest) {
 
