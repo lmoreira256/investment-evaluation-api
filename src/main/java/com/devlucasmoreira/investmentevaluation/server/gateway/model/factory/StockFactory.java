@@ -19,6 +19,7 @@ public class StockFactory {
                 .purchaseValue(stockRequest.getPurchaseValue())
                 .averagePurchase(stockRequest.getAveragePurchase())
                 .stockType(stockRequest.getStockType())
+                .show(true)
                 .build();
     }
 

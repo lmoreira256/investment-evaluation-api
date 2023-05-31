@@ -17,7 +17,8 @@ public interface StockRepository extends JpaRepository<Stock, UUID> {
 
     boolean existsByActive(String active);
 
-    List<Stock> findByShowOrderByActiveAsc(Boolean show);
+    @Query("SELECT s FROM Stock s WHERE s.amount > 0 ORDER BY s.active ASC")
+    List<Stock> findStocksActiveOrder();
 
     @Query("SELECT s FROM Stock s WHERE UPPER(s.active) LIKE %:active%")
     Optional<Stock> findByActive(@Param("active") String active);

@@ -14,7 +14,7 @@ public class StockListService {
     private StockRepository stockRepository;
 
     public List<Stock> execute() {
-        return stockRepository.findByShowOrderByActiveAsc(true);
+        return stockRepository.findStocksActiveOrder();
     }
 
 }

@@ -40,6 +40,7 @@ public class StockResource {
     @Autowired
     private StockGetResponseByIdService stockGetResponseByIdService;
 
+    @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockResponse> create(@RequestBody StockRequest stockRequest) {
 

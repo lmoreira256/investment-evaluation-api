@@ -25,31 +25,14 @@ public class StockUpdateService {
 
     public Stock execute(UUID id, StockRequest stockRequest) {
         Stock stock = stockRepository.findById(id).orElseThrow(StockNotFoundException::new);
-
-        if (stockRequest.getAmount() != null) {
-            stock.setAmount(stockRequest.getAmount());
-        }
-
-        if (stockRequest.getDescription() != null) {
-            stock.setDescription(stockRequest.getDescription());
-        }
-
-        if (stockRequest.getCurrentValue() != null) {
-            stock.setCurrentValue(stockRequest.getCurrentValue());
-        }
-
-        if (stockRequest.getPurchaseValue() != null) {
-            stock.setPurchaseValue(stockRequest.getPurchaseValue());
-        }
-
-        if (stockRequest.getAveragePurchase() != null) {
-            stock.setAveragePurchase(stockRequest.getAveragePurchase());
-        }
-
-        stock = stockUpdateValuesService.execute(stock);
+        stock.setAmount(stockRequest.getAmount());
+        stock.setDescription(stockRequest.getDescription());
+        stock.setCurrentValue(stockRequest.getCurrentValue());
+        stock.setPurchaseValue(stockRequest.getPurchaseValue());
+        stock.setAveragePurchase(stockRequest.getAveragePurchase());
 
         Objects.requireNonNull(cacheManager.getCache("stockList")).clear();
-        return stockRepository.save(stock);
+        return stockRepository.save(stockUpdateValuesService.execute(stock));
     }
 
 }
