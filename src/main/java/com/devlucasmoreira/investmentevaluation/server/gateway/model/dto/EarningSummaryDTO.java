@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EarningSummaryActiveDTO {
+public class EarningSummaryDTO {
 
-    private String active;
+    private String item;
 
     private BigDecimal totalValue;
 

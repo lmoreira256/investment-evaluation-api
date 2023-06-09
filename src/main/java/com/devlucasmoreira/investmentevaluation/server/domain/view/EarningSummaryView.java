@@ -2,9 +2,9 @@ package com.devlucasmoreira.investmentevaluation.server.domain.view;
 
 import java.math.BigDecimal;
 
-public interface EarningSummaryActiveView {
+public interface EarningSummaryView {
 
-    String getActive();
+    String getItem();
 
     BigDecimal getTotalValue();
 

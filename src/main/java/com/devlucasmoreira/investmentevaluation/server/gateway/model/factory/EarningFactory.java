@@ -3,11 +3,8 @@ package com.devlucasmoreira.investmentevaluation.server.gateway.model.factory;
 import com.devlucasmoreira.investmentevaluation.server.domain.Earning;
 import com.devlucasmoreira.investmentevaluation.server.domain.Stock;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.EarningRequest;
-import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.EarningMonthSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningResponse;
 import org.springframework.data.domain.Page;
-
-import java.math.BigDecimal;
 
 public class EarningFactory {
 
@@ -32,13 +29,6 @@ public class EarningFactory {
 
     public static Page<EarningResponse> buildPageResponse(Page<Earning> earningPage) {
         return earningPage.map(EarningFactory::buildResponse);
-    }
-
-    public static EarningMonthSummaryDTO buildMonthSummaryResponse(String month, BigDecimal value) {
-        return EarningMonthSummaryDTO.builder()
-                .month(month)
-                .totalValue(value)
-                .build();
     }
 
 }

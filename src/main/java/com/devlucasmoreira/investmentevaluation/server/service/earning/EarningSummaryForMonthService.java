@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class EarningSummaryForActiveService {
+public class EarningSummaryForMonthService {
 
     @Autowired
     private EarningRepository earningRepository;
 
     public List<EarningSummaryDTO> execute() {
-        List<EarningSummaryView> earningSummaryViewList = earningRepository.getEarningSummaryForActive();
+        List<EarningSummaryView> earningSummaryViewList = earningRepository.getEarningSummaryForMonth();
 
         return earningSummaryViewList.stream().map(earningSummaryView -> EarningSummaryDTO.builder()
                 .item(earningSummaryView.getItem())

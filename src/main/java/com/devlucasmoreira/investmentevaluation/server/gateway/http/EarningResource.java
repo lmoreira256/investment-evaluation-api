@@ -1,11 +1,12 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
-import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.EarningSummaryActiveDTO;
+import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.EarningSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.EarningRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningResponse;
 import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningCreateService;
 import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningListService;
 import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningSummaryForActiveService;
+import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningSummaryForMonthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,9 @@ public class EarningResource {
     @Autowired
     private EarningSummaryForActiveService earningSummaryForActiveService;
 
+    @Autowired
+    private EarningSummaryForMonthService earningSummaryForMonthService;
+
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EarningResponse> create(@RequestBody EarningRequest earningRequest) {
@@ -52,9 +56,16 @@ public class EarningResource {
 
     @Cacheable(value = "earningSummaryActive")
     @GetMapping(value = "/summary/active", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<EarningSummaryActiveDTO>> summaryActive() {
+    public ResponseEntity<List<EarningSummaryDTO>> summaryActive() {
 
         return new ResponseEntity<>(earningSummaryForActiveService.execute(), HttpStatus.OK);
+    }
+
+    @Cacheable(value = "earningSummaryMonth")
+    @GetMapping(value = "/summary/month", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EarningSummaryDTO>> summaryMonth() {
+
+        return new ResponseEntity<>(earningSummaryForMonthService.execute(), HttpStatus.OK);
     }
 
 }
