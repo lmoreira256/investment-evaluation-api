@@ -1,6 +1,7 @@
 package com.devlucasmoreira.investmentevaluation.server.repository;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.Earning;
+import com.devlucasmoreira.investmentevaluation.server.domain.view.EarningSummaryActiveView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,5 +23,8 @@ public interface EarningRepository extends JpaRepository<Earning, UUID> {
 
     @Query("SELECT SUM(e.amountPaid) FROM Earning e")
     BigDecimal getTotalValue();
+
+    @Query("SELECT e.stock.active as active, SUM(e.amountPaid) as totalValue FROM Earning e GROUP BY e.stock.active ORDER BY totalValue DESC")
+    List<EarningSummaryActiveView> getEarningSummaryForActive();
 
 }

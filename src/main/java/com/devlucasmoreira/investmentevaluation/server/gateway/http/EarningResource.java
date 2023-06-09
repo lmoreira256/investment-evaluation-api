@@ -1,11 +1,11 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
+import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.EarningSummaryActiveDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.EarningRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningResponse;
-import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningSummaryResponse;
 import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningCreateService;
 import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningListService;
-import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningSummaryService;
+import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningSummaryForActiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -15,13 +15,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/earning")
@@ -34,7 +30,7 @@ public class EarningResource {
     private EarningListService earningListService;
 
     @Autowired
-    private EarningSummaryService earningSummaryService;
+    private EarningSummaryForActiveService earningSummaryForActiveService;
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -54,11 +50,11 @@ public class EarningResource {
         return new ResponseEntity<>(earningListService.execute(active, pageable), HttpStatus.OK);
     }
 
-    @Cacheable(value = "earningSummary")
-    @GetMapping(value = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EarningSummaryResponse> summary() {
+    @Cacheable(value = "earningSummaryActive")
+    @GetMapping(value = "/summary/active", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EarningSummaryActiveDTO>> summaryActive() {
 
-        return new ResponseEntity<>(earningSummaryService.execute(), HttpStatus.OK);
+        return new ResponseEntity<>(earningSummaryForActiveService.execute(), HttpStatus.OK);
     }
 
 }

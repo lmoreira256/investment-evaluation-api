@@ -1,4 +1,4 @@
-package com.devlucasmoreira.investmentevaluation.server.gateway.model.response;
+package com.devlucasmoreira.investmentevaluation.server.gateway.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EarningMonthSummaryResponse {
+public class EarningMonthSummaryDTO {
 
     private String month;
 
