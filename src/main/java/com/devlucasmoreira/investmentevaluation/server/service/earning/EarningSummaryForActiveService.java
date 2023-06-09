@@ -3,6 +3,7 @@ package com.devlucasmoreira.investmentevaluation.server.service.earning;
 import com.devlucasmoreira.investmentevaluation.server.domain.view.EarningSummaryView;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.EarningSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.repository.EarningRepository;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,10 @@ public class EarningSummaryForActiveService {
     @Autowired
     private EarningRepository earningRepository;
 
-    public List<EarningSummaryDTO> execute() {
-        List<EarningSummaryView> earningSummaryViewList = earningRepository.getEarningSummaryForActive();
+    public List<EarningSummaryDTO> execute(String active) {
+        List<EarningSummaryView> earningSummaryViewList = Strings.isBlank(active) ?
+                earningRepository.getEarningSummaryForActive()
+                : earningRepository.getEarningSummaryByActive(active);
 
         return earningSummaryViewList.stream().map(earningSummaryView -> EarningSummaryDTO.builder()
                 .item(earningSummaryView.getItem())

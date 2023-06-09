@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,20 +56,23 @@ public class EarningResource {
         return new ResponseEntity<>(earningListService.execute(active, pageable), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @Cacheable(value = "earningSummaryActive")
     @GetMapping(value = "/summary/active", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<EarningSummaryDTO>> summaryActive() {
+    public ResponseEntity<List<EarningSummaryDTO>> summaryActive(@Param("active") String active) {
 
-        return new ResponseEntity<>(earningSummaryForActiveService.execute(), HttpStatus.OK);
+        return new ResponseEntity<>(earningSummaryForActiveService.execute(active), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @Cacheable(value = "earningSummaryMonth")
     @GetMapping(value = "/summary/month", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<EarningSummaryDTO>> summaryMonth() {
+    public ResponseEntity<List<EarningSummaryDTO>> summaryMonth(@Param("month") String month) {
 
-        return new ResponseEntity<>(earningSummaryForMonthService.execute(), HttpStatus.OK);
+        return new ResponseEntity<>(earningSummaryForMonthService.execute(month), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @Cacheable(value = "earningSummaryTotal")
     @GetMapping(value = "/summary/total", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BigDecimal> earningSummaryTotal() {

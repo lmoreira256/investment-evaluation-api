@@ -27,11 +27,26 @@ public interface EarningRepository extends JpaRepository<Earning, UUID> {
     @Query("SELECT e.stock.active as item, SUM(e.amountPaid) as totalValue FROM Earning e GROUP BY e.stock.active ORDER BY totalValue DESC")
     List<EarningSummaryView> getEarningSummaryForActive();
 
+    @Query("SELECT e.stock.active as item, SUM(e.amountPaid) as totalValue " +
+            "FROM Earning e " +
+            "WHERE e.stock.active = :active " +
+            "GROUP BY e.stock.active " +
+            "ORDER BY totalValue DESC ")
+    List<EarningSummaryView> getEarningSummaryByActive(@Param("active") String active);
+
     @Query(value = "SELECT TO_CHAR(DATE_TRUNC('month', e.payday), 'MM/YYYY') AS item, SUM(e.amount_paid) as totalValue " +
             "FROM Earning e " +
             "GROUP BY DATE_TRUNC('month', e.payday) " +
             "ORDER BY DATE_TRUNC('month', e.payday) DESC " +
             "LIMIT 24", nativeQuery = true)
     List<EarningSummaryView> getEarningSummaryForMonth();
+
+    @Query(value = "SELECT TO_CHAR(DATE_TRUNC('month', e.payday), 'MM/YYYY') AS item, SUM(e.amount_paid) as totalValue " +
+            "FROM Earning e " +
+            "WHERE TO_CHAR(DATE_TRUNC('month', e.payday), 'MM/YYYY') = :month " +
+            "GROUP BY DATE_TRUNC('month', e.payday) " +
+            "ORDER BY DATE_TRUNC('month', e.payday) DESC " +
+            "LIMIT 24", nativeQuery = true)
+    List<EarningSummaryView> getEarningSummaryByMonth(@Param("month") String month);
 
 }
