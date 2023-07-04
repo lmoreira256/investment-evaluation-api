@@ -1,4 +1,4 @@
-package com.devlucasmoreira.investmentevaluation.server.gateway.model.dto;
+package com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
 import com.devlucasmoreira.investmentevaluation.server.enums.ActiveTypeEnum;
-import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.ActiveSummaryDTO;
+import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.ActiveFactory;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetSummaryService;
