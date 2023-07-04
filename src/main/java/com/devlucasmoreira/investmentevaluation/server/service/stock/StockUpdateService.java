@@ -33,6 +33,8 @@ public class StockUpdateService {
 
         Objects.requireNonNull(cacheManager.getCache("stockList")).clear();
         Objects.requireNonNull(cacheManager.getCache("generalSummary")).clear();
+        Objects.requireNonNull(cacheManager.getCache("stockSummary")).clear();
+        Objects.requireNonNull(cacheManager.getCache("realEstateFundSummary")).clear();
         return stockRepository.save(stockUpdateValuesService.execute(stock));
     }
 

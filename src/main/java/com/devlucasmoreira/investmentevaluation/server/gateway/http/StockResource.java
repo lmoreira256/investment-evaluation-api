@@ -6,7 +6,9 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.Sto
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.StockResponse;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockCreateService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetGeneralSummaryService;
+import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetRealEstateFundSummaryService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetResponseByIdService;
+import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetStockSummaryService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockListService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,12 @@ public class StockResource {
     @Autowired
     private StockGetGeneralSummaryService stockGetGeneralSummaryService;
 
+    @Autowired
+    private StockGetStockSummaryService stockGetStockSummaryService;
+
+    @Autowired
+    private StockGetRealEstateFundSummaryService stockGetRealEstateFundSummaryService;
+
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockResponse> create(@RequestBody StockRequest stockRequest) {
@@ -80,6 +88,22 @@ public class StockResource {
     public ResponseEntity<ActiveSummaryDTO> getGeneralSummary() {
 
         return new ResponseEntity<>(stockGetGeneralSummaryService.execute(), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @Cacheable(value = "stockSummary")
+    @GetMapping(value = "/stock-summary", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ActiveSummaryDTO> getStockSummary() {
+
+        return new ResponseEntity<>(stockGetStockSummaryService.execute(), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @Cacheable(value = "realEstateFundSummary")
+    @GetMapping(value = "/real-estate-fund-summary", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ActiveSummaryDTO> getRealEstateFundSummary() {
+
+        return new ResponseEntity<>(stockGetRealEstateFundSummaryService.execute(), HttpStatus.OK);
     }
 
 }

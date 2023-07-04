@@ -23,14 +23,14 @@ public interface StockRepository extends JpaRepository<Stock, UUID> {
     @Query("SELECT s FROM Stock s WHERE UPPER(s.active) LIKE %:active%")
     Optional<Stock> findByActive(@Param("active") String active);
 
-    @Query("SELECT SUM(s.amount) FROM Stock s WHERE s.stockType IN (:stockTypeList)")
+    @Query("SELECT SUM(s.amount) FROM Stock s WHERE s.stockType IN (:stockTypeList) AND s.show = true")
     Integer getTotalAmountByType(@Param("stockTypeList") List<StockTypeEnum> stockTypeList);
 
-    @Query("SELECT SUM(s.purchaseValue) FROM Stock s WHERE s.stockType IN (:stockTypeList)")
+    @Query("SELECT SUM(s.purchaseValue) FROM Stock s WHERE s.stockType IN (:stockTypeList) AND s.show = true")
     BigDecimal getTotalPurchaseValueByType(@Param("stockTypeList") List<StockTypeEnum> stockTypeList);
 
-    @Query("SELECT SUM(s.currentValue) FROM Stock s WHERE s.stockType IN (:stockTypeList)")
-    BigDecimal getTotalActualValueByType(@Param("stockTypeList") List<StockTypeEnum> stockTypeList);
+    @Query("SELECT SUM(s.currentValue) FROM Stock s WHERE s.stockType IN (:stockTypeList) AND s.show = true")
+    BigDecimal getTotalCurrentValueByType(@Param("stockTypeList") List<StockTypeEnum> stockTypeList);
 
     @Query("SELECT SUM(s.amount) FROM Stock s WHERE s.show = true")
     Integer getTotalAmount();

@@ -15,7 +15,7 @@ public class StockGetTotalActualValueByTypeService {
     private StockRepository stockRepository;
 
     public BigDecimal execute(List<StockTypeEnum> stockTypeEnumList) {
-        return stockRepository.getTotalActualValueByType(stockTypeEnumList);
+        return stockRepository.getTotalCurrentValueByType(stockTypeEnumList);
     }
 
 }
