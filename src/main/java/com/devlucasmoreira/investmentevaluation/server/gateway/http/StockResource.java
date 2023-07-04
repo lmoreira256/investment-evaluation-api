@@ -75,6 +75,7 @@ public class StockResource {
     }
 
     @CrossOrigin
+    @Cacheable(value = "generalSummary")
     @GetMapping(value = "/general-summary", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ActiveSummaryDTO> getGeneralSummary() {
 

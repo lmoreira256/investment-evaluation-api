@@ -32,6 +32,7 @@ public class StockUpdateService {
         stock.setAveragePurchase(stockRequest.getAveragePurchase());
 
         Objects.requireNonNull(cacheManager.getCache("stockList")).clear();
+        Objects.requireNonNull(cacheManager.getCache("generalSummary")).clear();
         return stockRepository.save(stockUpdateValuesService.execute(stock));
     }
 

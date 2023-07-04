@@ -30,6 +30,7 @@ public class StockCreateService {
         stock = stockUpdateValuesService.execute(stock);
 
         Objects.requireNonNull(cacheManager.getCache("stockList")).clear();
+        Objects.requireNonNull(cacheManager.getCache("generalSummary")).clear();
         return stockRepository.save(stock);
     }
 
