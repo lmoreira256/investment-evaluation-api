@@ -19,4 +19,8 @@ public class ActiveSummaryDTO {
 
     private BigDecimal purchaseValue;
 
+    private BigDecimal resultValue;
+
+    private BigDecimal resultPercentageValue;
+
 }

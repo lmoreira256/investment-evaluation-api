@@ -1,12 +1,12 @@
 package com.devlucasmoreira.investmentevaluation.server.service.earning;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.Earning;
-import com.devlucasmoreira.investmentevaluation.server.domain.Stock;
+import com.devlucasmoreira.investmentevaluation.server.domain.Active;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.EarningFactory;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.EarningRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningResponse;
 import com.devlucasmoreira.investmentevaluation.server.repository.EarningRepository;
-import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetByIdService;
+import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class EarningCreateService {
 
     @Autowired
-    private StockGetByIdService stockGetByIdService;
+    private ActiveGetByIdService stockGetByIdService;
 
     @Autowired
     private EarningRepository earningRepository;
@@ -26,7 +26,7 @@ public class EarningCreateService {
     private CacheManager cacheManager;
 
     public EarningResponse execute(EarningRequest earningRequest) {
-        Stock stock = stockGetByIdService.execute(earningRequest.getStockId());
+        Active stock = stockGetByIdService.execute(earningRequest.getStockId());
         Earning earning = EarningFactory.build(earningRequest, stock);
 
         Objects.requireNonNull(cacheManager.getCache("earningList")).clear();

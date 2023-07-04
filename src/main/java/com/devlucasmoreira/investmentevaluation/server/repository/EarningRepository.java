@@ -16,7 +16,7 @@ import java.util.UUID;
 @Repository
 public interface EarningRepository extends JpaRepository<Earning, UUID> {
 
-    @Query("SELECT e FROM Earning e WHERE UPPER(e.stock.active) LIKE %:active%")
+    @Query("SELECT e FROM Earning e WHERE UPPER(e.active.name) LIKE %:active%")
     Page<Earning> findByActive(@Param("active") String active, Pageable pageable);
 
     List<Earning> findAllByOrderByCreatedAtDesc();
@@ -24,13 +24,13 @@ public interface EarningRepository extends JpaRepository<Earning, UUID> {
     @Query("SELECT SUM(e.amountPaid) FROM Earning e")
     BigDecimal getTotalValue();
 
-    @Query("SELECT e.stock.active as item, SUM(e.amountPaid) as totalValue FROM Earning e GROUP BY e.stock.active ORDER BY totalValue DESC")
+    @Query("SELECT e.active.name as item, SUM(e.amountPaid) as totalValue FROM Earning e GROUP BY e.active.name ORDER BY totalValue DESC")
     List<EarningSummaryView> getEarningSummaryForActive();
 
-    @Query("SELECT e.stock.active as item, SUM(e.amountPaid) as totalValue " +
+    @Query("SELECT e.active.name as item, SUM(e.amountPaid) as totalValue " +
             "FROM Earning e " +
-            "WHERE e.stock.active = :active " +
-            "GROUP BY e.stock.active " +
+            "WHERE e.active.name = :active " +
+            "GROUP BY e.active.name " +
             "ORDER BY totalValue DESC ")
     List<EarningSummaryView> getEarningSummaryByActive(@Param("active") String active);
 

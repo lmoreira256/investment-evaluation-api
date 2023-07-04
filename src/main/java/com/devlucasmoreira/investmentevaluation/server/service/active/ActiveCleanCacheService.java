@@ -1,4 +1,4 @@
-package com.devlucasmoreira.investmentevaluation.server.service.stock;
+package com.devlucasmoreira.investmentevaluation.server.service.active;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class StockCleanCacheService {
+public class ActiveCleanCacheService {
 
     @Autowired
     private CacheManager cacheManager;

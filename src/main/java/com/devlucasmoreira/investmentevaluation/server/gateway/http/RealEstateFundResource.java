@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stock")
-public class StockResource {
+@RequestMapping("/real-estate-fund")
+public class RealEstateFundResource {
 
     @Autowired
     private ActiveListByTypeService activeListByTypeService;
@@ -29,21 +29,22 @@ public class StockResource {
     private ActiveGetSummaryService activeGetSummaryService;
 
     @CrossOrigin
-    @Cacheable(value = "stockList")
+    @Cacheable(value = "realEstateFundList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ActiveDTO>> list() {
 
         return new ResponseEntity<>(ActiveFactory.buildListDTO(
-                activeListByTypeService.execute(ActiveTypeEnum.STOCK)), HttpStatus.OK);
+                activeListByTypeService.execute(ActiveTypeEnum.REAL_ESTATE_FUND)), HttpStatus.OK);
     }
 
 
     @CrossOrigin
-    @Cacheable(value = "stockSummary")
+    @Cacheable(value = "realEstateFundSummary")
     @GetMapping(value = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ActiveSummaryDTO> summary() {
 
-        return new ResponseEntity<>(activeGetSummaryService.execute(List.of(ActiveTypeEnum.STOCK)), HttpStatus.OK);
+        return new ResponseEntity<>(activeGetSummaryService
+                .execute(List.of(ActiveTypeEnum.REAL_ESTATE_FUND)), HttpStatus.OK);
     }
 
 

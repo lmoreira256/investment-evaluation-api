@@ -33,8 +33,8 @@ public class Earning {
     private UUID id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_stock", referencedColumnName = "id")
-    private Stock stock;
+    @JoinColumn(name = "id_active", referencedColumnName = "id")
+    private Active active;
 
     @Column(name = "amount_paid")
     private BigDecimal amountPaid;

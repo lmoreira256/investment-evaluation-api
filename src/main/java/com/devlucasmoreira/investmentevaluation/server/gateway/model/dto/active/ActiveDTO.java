@@ -1,6 +1,6 @@
-package com.devlucasmoreira.investmentevaluation.server.gateway.model.response;
+package com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active;
 
-import com.devlucasmoreira.investmentevaluation.server.enums.StockTypeEnum;
+import com.devlucasmoreira.investmentevaluation.server.enums.ActiveTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,11 +14,11 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StockResponse {
+public class ActiveDTO {
 
     private UUID id;
 
-    private String active;
+    private String name;
 
     private String description;
 
@@ -26,18 +26,20 @@ public class StockResponse {
 
     private BigDecimal currentValue;
 
-    private BigDecimal cashReturn;
+    private BigDecimal resultValue;
 
-    private BigDecimal profitability;
+    private BigDecimal resultPercentageValue;
 
     private BigDecimal purchaseValue;
 
-    private BigDecimal averagePurchase;
+    private BigDecimal averageValue;
 
-    private StockTypeEnum stockType;
+    private ActiveTypeEnum activeType;
 
     private OffsetDateTime createdAt;
 
     private OffsetDateTime updatedAt;
+
+    private Boolean enabled;
 
 }

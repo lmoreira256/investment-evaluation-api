@@ -1,6 +1,6 @@
 package com.devlucasmoreira.investmentevaluation.server.domain;
 
-import com.devlucasmoreira.investmentevaluation.server.enums.StockTypeEnum;
+import com.devlucasmoreira.investmentevaluation.server.enums.ActiveTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,16 +25,16 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "stock")
-public class Stock {
+@Table(name = "active")
+public class Active {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "active")
-    private String active;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "description")
     private String description;
@@ -45,21 +45,21 @@ public class Stock {
     @Column(name = "current_value")
     private BigDecimal currentValue;
 
-    @Column(name = "cash_return")
-    private BigDecimal cashReturn;
+    @Column(name = "result_value")
+    private BigDecimal resultValue;
 
-    @Column(name = "profitability")
-    private BigDecimal profitability;
+    @Column(name = "result_percentage_value")
+    private BigDecimal resultPercentageValue;
 
     @Column(name = "purchase_value")
     private BigDecimal purchaseValue;
 
-    @Column(name = "average_purchase")
-    private BigDecimal averagePurchase;
+    @Column(name = "average_value")
+    private BigDecimal averageValue;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "stock_type")
-    private StockTypeEnum stockType;
+    @Column(name = "active_type")
+    private ActiveTypeEnum activeType;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -69,7 +69,7 @@ public class Stock {
     @Column(name = "updated_at")
     private OffsetDateTime updatedAt;
 
-    @Column(name = "show")
-    private Boolean show;
+    @Column(name = "enabled")
+    private Boolean enabled;
 
 }

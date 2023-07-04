@@ -2,7 +2,7 @@ package com.devlucasmoreira.investmentevaluation.server.service.stock.historic;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.StockHistoric;
 import com.devlucasmoreira.investmentevaluation.server.enums.StockHistoricTypeEnum;
-import com.devlucasmoreira.investmentevaluation.server.enums.StockTypeEnum;
+import com.devlucasmoreira.investmentevaluation.server.enums.ActiveTypeEnum;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.StockHistoricFactory;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.StockHistoricCreationResponse;
 import com.devlucasmoreira.investmentevaluation.server.repository.StockHistoricRepository;
@@ -38,16 +38,16 @@ public class StockHistoricCreateService {
 
     public StockHistoricCreationResponse execute() {
         StockHistoric stockHistoricStock = createStockHistoric(
-                Arrays.asList(StockTypeEnum.STOCK, StockTypeEnum.BDR), StockHistoricTypeEnum.STOCK);
+                Arrays.asList(ActiveTypeEnum.STOCK, ActiveTypeEnum.BDR), StockHistoricTypeEnum.STOCK);
         StockHistoric stockHistoricRealEstateFund = createStockHistoric(
-                List.of(StockTypeEnum.REAL_ESTATE_FUND), StockHistoricTypeEnum.REAL_ESTATE_FUND);
+                List.of(ActiveTypeEnum.REAL_ESTATE_FUND), StockHistoricTypeEnum.REAL_ESTATE_FUND);
         StockHistoric stockHistoricGeneral = createGeneralStockHistoric(stockHistoricStock, stockHistoricRealEstateFund);
 
         Objects.requireNonNull(cacheManager.getCache("stockHistoricList")).clear();
         return StockHistoricFactory.buildResponse(Arrays.asList(stockHistoricStock, stockHistoricRealEstateFund, stockHistoricGeneral));
     }
 
-    private StockHistoric createStockHistoric(List<StockTypeEnum> stockTypeEnumList, StockHistoricTypeEnum stockHistoricTypeEnum) {
+    private StockHistoric createStockHistoric(List<ActiveTypeEnum> stockTypeEnumList, StockHistoricTypeEnum stockHistoricTypeEnum) {
         Integer amount = stockGetTotalAmountByTypeService.execute(stockTypeEnumList);
         BigDecimal purchaseValue = stockGetTotalPurchaseValueByTypeService.execute(stockTypeEnumList);
         BigDecimal actualValue = stockGetTotalActualValueByTypeService.execute(stockTypeEnumList);

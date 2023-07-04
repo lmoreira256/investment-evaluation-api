@@ -1,6 +1,6 @@
 package com.devlucasmoreira.investmentevaluation.server.enums;
 
-public enum StockTypeEnum {
+public enum ActiveTypeEnum {
 
     STOCK,
     REAL_ESTATE_FUND,
