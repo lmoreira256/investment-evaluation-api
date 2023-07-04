@@ -1,9 +1,11 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
+import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.ActiveSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.StockFactory;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.StockRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.StockResponse;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockCreateService;
+import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetGeneralSummaryService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetResponseByIdService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockListService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockUpdateService;
@@ -40,6 +42,9 @@ public class StockResource {
     @Autowired
     private StockGetResponseByIdService stockGetResponseByIdService;
 
+    @Autowired
+    private StockGetGeneralSummaryService stockGetGeneralSummaryService;
+
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockResponse> create(@RequestBody StockRequest stockRequest) {
@@ -67,6 +72,13 @@ public class StockResource {
     public ResponseEntity<StockResponse> get(@PathVariable("id") UUID id) {
 
         return new ResponseEntity<>(StockFactory.buildResponse(stockGetResponseByIdService.execute(id)), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/general-summary", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ActiveSummaryDTO> getGeneralSummary() {
+
+        return new ResponseEntity<>(stockGetGeneralSummaryService.execute(), HttpStatus.OK);
     }
 
 }

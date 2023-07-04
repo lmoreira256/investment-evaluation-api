@@ -32,4 +32,13 @@ public interface StockRepository extends JpaRepository<Stock, UUID> {
     @Query("SELECT SUM(s.currentValue) FROM Stock s WHERE s.stockType IN (:stockTypeList)")
     BigDecimal getTotalActualValueByType(@Param("stockTypeList") List<StockTypeEnum> stockTypeList);
 
+    @Query("SELECT SUM(s.amount) FROM Stock s WHERE s.show = true")
+    Integer getTotalAmount();
+
+    @Query("SELECT SUM(s.currentValue) FROM Stock s WHERE s.show = true")
+    BigDecimal getTotalCurrentValue();
+
+    @Query("SELECT SUM(s.purchaseValue) FROM Stock s WHERE s.show = true")
+    BigDecimal getTotalPurchaseValue();
+
 }
