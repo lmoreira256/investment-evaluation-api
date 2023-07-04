@@ -41,4 +41,7 @@ public interface StockRepository extends JpaRepository<Stock, UUID> {
     @Query("SELECT SUM(s.purchaseValue) FROM Stock s WHERE s.show = true")
     BigDecimal getTotalPurchaseValue();
 
+    @Query("SELECT s FROM Stock s WHERE s.show = true AND s.stockType IN (:stockTypeList) ORDER BY s.active ASC")
+    List<Stock> listActivesByType(@Param("stockTypeList") List<StockTypeEnum> stockTypeList);
+
 }

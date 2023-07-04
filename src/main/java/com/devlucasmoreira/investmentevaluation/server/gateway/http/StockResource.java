@@ -1,5 +1,6 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
+import com.devlucasmoreira.investmentevaluation.server.enums.StockTypeEnum;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.ActiveSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.StockFactory;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.StockRequest;
@@ -9,6 +10,7 @@ import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetGen
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetRealEstateFundSummaryService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetResponseByIdService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockGetStockSummaryService;
+import com.devlucasmoreira.investmentevaluation.server.service.stock.StockListActivesByTypeService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockListService;
 import com.devlucasmoreira.investmentevaluation.server.service.stock.StockUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,9 @@ public class StockResource {
     @Autowired
     private StockGetRealEstateFundSummaryService stockGetRealEstateFundSummaryService;
 
+    @Autowired
+    private StockListActivesByTypeService stockListActivesByTypeService;
+
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockResponse> create(@RequestBody StockRequest stockRequest) {
@@ -61,7 +66,7 @@ public class StockResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "stockList")
+    @Cacheable(value = "activeList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<StockResponse>> list() {
 
@@ -104,6 +109,24 @@ public class StockResource {
     public ResponseEntity<ActiveSummaryDTO> getRealEstateFundSummary() {
 
         return new ResponseEntity<>(stockGetRealEstateFundSummaryService.execute(), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @Cacheable(value = "stockList")
+    @GetMapping(value = "/only-stock", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StockResponse>> listOnlyStock() {
+
+        return new ResponseEntity<>(StockFactory
+                .buildPageResponse(stockListActivesByTypeService.execute(List.of(StockTypeEnum.STOCK))), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @Cacheable(value = "realEstateFundList")
+    @GetMapping(value = "/only-real-estate-fund", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StockResponse>> listOnlyRealEstateFund() {
+
+        return new ResponseEntity<>(StockFactory.buildPageResponse(
+                stockListActivesByTypeService.execute(List.of(StockTypeEnum.REAL_ESTATE_FUND))), HttpStatus.OK);
     }
 
 }

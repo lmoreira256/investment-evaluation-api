@@ -5,10 +5,8 @@ import com.devlucasmoreira.investmentevaluation.server.exception.StockNotFoundEx
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.StockRequest;
 import com.devlucasmoreira.investmentevaluation.server.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -18,10 +16,10 @@ public class StockUpdateService {
     private StockRepository stockRepository;
 
     @Autowired
-    private CacheManager cacheManager;
+    private StockUpdateValuesService stockUpdateValuesService;
 
     @Autowired
-    private StockUpdateValuesService stockUpdateValuesService;
+    private StockCleanCacheService stockCleanCacheService;
 
     public Stock execute(UUID id, StockRequest stockRequest) {
         Stock stock = stockRepository.findById(id).orElseThrow(StockNotFoundException::new);
@@ -31,10 +29,7 @@ public class StockUpdateService {
         stock.setPurchaseValue(stockRequest.getPurchaseValue());
         stock.setAveragePurchase(stockRequest.getAveragePurchase());
 
-        Objects.requireNonNull(cacheManager.getCache("stockList")).clear();
-        Objects.requireNonNull(cacheManager.getCache("generalSummary")).clear();
-        Objects.requireNonNull(cacheManager.getCache("stockSummary")).clear();
-        Objects.requireNonNull(cacheManager.getCache("realEstateFundSummary")).clear();
+        stockCleanCacheService.execute();
         return stockRepository.save(stockUpdateValuesService.execute(stock));
     }
 
