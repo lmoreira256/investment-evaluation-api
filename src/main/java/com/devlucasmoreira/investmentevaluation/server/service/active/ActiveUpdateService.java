@@ -15,7 +15,7 @@ public class ActiveUpdateService {
     private ActiveRepository stockRepository;
 
     @Autowired
-    private ActiveCleanCacheService stockCleanCacheService;
+    private ActiveCleanCacheService activeCleanCacheService;
 
     @Autowired
     private ActiveGetByIdService activeGetByIdService;
@@ -30,7 +30,7 @@ public class ActiveUpdateService {
         active.setResultValue(activeDTO.getResultValue());
         active.setResultPercentageValue(activeDTO.getResultPercentageValue());
 
-        stockCleanCacheService.execute();
+        activeCleanCacheService.execute();
         return stockRepository.save(active);
     }
 

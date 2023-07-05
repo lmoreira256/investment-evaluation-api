@@ -35,7 +35,7 @@ public interface ActiveRepository extends JpaRepository<Active, UUID> {
     @Query("SELECT SUM(a.resultValue) FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
     BigDecimal getTotalResultValueByType(@Param("activeTypeList") List<ActiveTypeEnum> activeTypeList);
 
-    @Query("SELECT SUM(a.resultPercentageValue) FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
+    @Query("SELECT ((SUM(a.currentValue) - SUM(a.purchaseValue)) / SUM(a.purchaseValue)) * 100 FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
     BigDecimal getTotalResulPercentageValueByType(@Param("activeTypeList") List<ActiveTypeEnum> activeTypeList);
 
     @Query("SELECT a FROM Active a WHERE a.enabled = true AND a.activeType = :activeTypeEnum ORDER BY a.name ASC")
