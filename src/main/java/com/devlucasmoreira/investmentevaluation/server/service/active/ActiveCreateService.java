@@ -20,10 +20,8 @@ public class ActiveCreateService {
     public Active execute(ActiveDTO activeDTO) {
         validateActive(activeDTO);
 
-        Active active = ActiveFactory.build(activeDTO);
-
         activeCleanCacheService.execute();
-        return activeRepository.save(active);
+        return activeRepository.save(ActiveFactory.build(activeDTO));
     }
 
     private void validateActive(ActiveDTO activeDTO) {
