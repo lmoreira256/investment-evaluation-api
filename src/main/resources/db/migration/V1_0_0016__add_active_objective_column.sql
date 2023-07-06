@@ -1,0 +1,1 @@
+ALTER TABLE active ADD COLUMN objective INTEGER DEFAULT 0;

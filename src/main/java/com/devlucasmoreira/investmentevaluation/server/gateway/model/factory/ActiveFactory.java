@@ -20,6 +20,7 @@ public class ActiveFactory {
                 .resultPercentageValue(activeDTO.getResultPercentageValue())
                 .activeType(activeDTO.getActiveType())
                 .enabled(true)
+                .objective(activeDTO.getObjective())
                 .build();
     }
 
@@ -38,6 +39,7 @@ public class ActiveFactory {
                 .createdAt(active.getCreatedAt())
                 .updatedAt(active.getUpdatedAt())
                 .enabled(active.getEnabled())
+                .objective(active.getObjective())
                 .build();
     }
 

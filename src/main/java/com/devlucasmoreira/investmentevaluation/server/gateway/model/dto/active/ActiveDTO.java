@@ -42,4 +42,6 @@ public class ActiveDTO {
 
     private Boolean enabled;
 
+    private Integer objective;
+
 }

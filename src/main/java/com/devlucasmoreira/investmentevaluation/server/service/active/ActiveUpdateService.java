@@ -29,6 +29,8 @@ public class ActiveUpdateService {
         active.setAverageValue(activeDTO.getAverageValue());
         active.setResultValue(activeDTO.getResultValue());
         active.setResultPercentageValue(activeDTO.getResultPercentageValue());
+        active.setObjective(activeDTO.getObjective());
+        active.setEnabled(activeDTO.getEnabled());
 
         activeCleanCacheService.execute();
         return stockRepository.save(active);

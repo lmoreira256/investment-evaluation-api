@@ -72,4 +72,7 @@ public class Active {
     @Column(name = "enabled")
     private Boolean enabled;
 
+    @Column(name = "objective")
+    private Integer objective;
+
 }
