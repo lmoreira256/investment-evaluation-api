@@ -12,10 +12,10 @@ import java.util.UUID;
 public class ActiveGetByIdService {
 
     @Autowired
-    private ActiveRepository stockRepository;
+    private ActiveRepository activeRepository;
 
     public Active execute(UUID id) {
-        return stockRepository.findById(id).orElseThrow(ActiveNotFoundException::new);
+        return activeRepository.findById(id).orElseThrow(ActiveNotFoundException::new);
     }
 
 }

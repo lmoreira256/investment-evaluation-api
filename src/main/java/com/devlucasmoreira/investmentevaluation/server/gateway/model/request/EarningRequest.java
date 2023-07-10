@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EarningRequest {
 
-    private UUID stockId;
+    private UUID activeId;
 
     private BigDecimal amountPaid;
 
