@@ -33,16 +33,16 @@ public class Checkpoint {
     private Integer amount;
 
     @Column(name = "current_value")
-    private BigDecimal current_value;
+    private BigDecimal currentValue;
 
     @Column(name = "purchase_value")
-    private BigDecimal purchase_value;
+    private BigDecimal purchaseValue;
 
     @Column(name = "result_value")
-    private BigDecimal result_value;
+    private BigDecimal resultValue;
 
     @Column(name = "result_percentage_value")
-    private BigDecimal result_percentage_value;
+    private BigDecimal resultPercentageValue;
 
     @CreationTimestamp
     @Column(name = "created_at")
