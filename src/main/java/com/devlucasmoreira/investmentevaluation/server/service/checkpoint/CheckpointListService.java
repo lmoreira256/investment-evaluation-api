@@ -14,7 +14,7 @@ public class CheckpointListService {
     private CheckpointRepository checkpointRepository;
 
     public List<Checkpoint> execute() {
-        return checkpointRepository.findAllByOrderByCreatedAtDesc();
+        return checkpointRepository.findTop12ByOrderByCreatedAtDesc();
     }
 
 }

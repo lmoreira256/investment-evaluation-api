@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface CheckpointRepository extends JpaRepository<Checkpoint, UUID> {
 
-    List<Checkpoint> findAllByOrderByCreatedAtDesc();
+    List<Checkpoint> findTop12ByOrderByCreatedAtDesc();
 
 }
