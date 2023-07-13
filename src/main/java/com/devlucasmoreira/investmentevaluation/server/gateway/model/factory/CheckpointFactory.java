@@ -1,6 +1,7 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.model.factory;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.Checkpoint;
+import com.devlucasmoreira.investmentevaluation.server.domain.RealEstateFundCheckpoint;
 import com.devlucasmoreira.investmentevaluation.server.domain.StockCheckpoint;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.CheckpointDTO;
 
@@ -8,6 +9,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CheckpointFactory {
+
+    public static CheckpointDTO buildDTO(RealEstateFundCheckpoint realEstateFundCheckpoint) {
+        return CheckpointDTO.builder()
+                .amount(realEstateFundCheckpoint.getAmount())
+                .currentValue(realEstateFundCheckpoint.getCurrentValue())
+                .purchaseValue(realEstateFundCheckpoint.getPurchaseValue())
+                .resultValue(realEstateFundCheckpoint.getResultValue())
+                .resultPercentageValue(realEstateFundCheckpoint.getResultPercentageValue())
+                .createdAt(realEstateFundCheckpoint.getCreatedAt())
+                .build();
+    }
 
     public static CheckpointDTO buildDTO(StockCheckpoint stockCheckpoint) {
         return CheckpointDTO.builder()
@@ -35,8 +47,12 @@ public class CheckpointFactory {
         return checkpointList.stream().map(CheckpointFactory::buildDTO).collect(Collectors.toList());
     }
 
-    public static List<CheckpointDTO> buildListStockChecklistDTO(List<StockCheckpoint> stockCheckpoints) {
-        return stockCheckpoints.stream().map(CheckpointFactory::buildDTO).collect(Collectors.toList());
+    public static List<CheckpointDTO> buildListStockCheckpointDTO(List<StockCheckpoint> stockCheckpointList) {
+        return stockCheckpointList.stream().map(CheckpointFactory::buildDTO).collect(Collectors.toList());
+    }
+
+    public static List<CheckpointDTO> buildListRealEstateFundCheckpointDTO(List<RealEstateFundCheckpoint> realEstateFundCheckpointList) {
+        return realEstateFundCheckpointList.stream().map(CheckpointFactory::buildDTO).collect(Collectors.toList());
     }
 
 }

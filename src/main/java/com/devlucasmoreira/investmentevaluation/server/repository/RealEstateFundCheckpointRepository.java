@@ -4,8 +4,12 @@ import com.devlucasmoreira.investmentevaluation.server.domain.RealEstateFundChec
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
 public interface RealEstateFundCheckpointRepository extends JpaRepository<RealEstateFundCheckpoint, UUID> {
+
+    List<RealEstateFundCheckpoint> findTop12ByOrderByCreatedAtDesc();
+
 }

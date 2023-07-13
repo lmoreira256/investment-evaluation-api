@@ -2,8 +2,8 @@ package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.CheckpointDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.CheckpointFactory;
-import com.devlucasmoreira.investmentevaluation.server.service.stock.checkpoint.StockCheckpointCreateService;
-import com.devlucasmoreira.investmentevaluation.server.service.stock.checkpoint.StockCheckpointListService;
+import com.devlucasmoreira.investmentevaluation.server.service.real.estate.fund.checkpoint.RealEstateFundCheckpointCreateService;
+import com.devlucasmoreira.investmentevaluation.server.service.real.estate.fund.checkpoint.RealEstateFundCheckpointListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -18,30 +18,30 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stock-checkpoint")
-public class StockCheckpointResource {
+@RequestMapping("/real-estate-fund-checkpoint")
+public class RealEstateFundCheckpointResource {
 
     @Autowired
-    private StockCheckpointCreateService stockCheckpointCreateService;
+    private RealEstateFundCheckpointCreateService realEstateFundCheckpointCreateService;
 
     @Autowired
-    private StockCheckpointListService stockCheckpointListService;
+    private RealEstateFundCheckpointListService realEstateFundCheckpointListService;
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CheckpointDTO> create() {
 
         return new ResponseEntity<>(CheckpointFactory
-                .buildDTO(stockCheckpointCreateService.execute()), HttpStatus.CREATED);
+                .buildDTO(realEstateFundCheckpointCreateService.execute()), HttpStatus.CREATED);
     }
 
     @CrossOrigin
-    @Cacheable(value = "stockCheckpointList")
+    @Cacheable(value = "realEstateFundCheckpointList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CheckpointDTO>> get() {
 
         return new ResponseEntity<>(CheckpointFactory
-                .buildListStockCheckpointDTO(stockCheckpointListService.execute()), HttpStatus.OK);
+                .buildListRealEstateFundCheckpointDTO(realEstateFundCheckpointListService.execute()), HttpStatus.OK);
     }
 
 }
