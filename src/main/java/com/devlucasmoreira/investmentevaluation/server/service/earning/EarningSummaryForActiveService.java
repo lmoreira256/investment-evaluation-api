@@ -5,6 +5,8 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.Earning
 import com.devlucasmoreira.investmentevaluation.server.repository.EarningRepository;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +19,10 @@ public class EarningSummaryForActiveService {
     private EarningRepository earningRepository;
 
     public List<EarningSummaryDTO> execute(String active) {
+        Pageable topTwenty = PageRequest.of(0, 10);
+
         List<EarningSummaryView> earningSummaryViewList = Strings.isBlank(active) ?
-                earningRepository.getEarningSummaryForActive()
+                earningRepository.getEarningSummaryForActive(topTwenty)
                 : earningRepository.getEarningSummaryByActive(active);
 
         return earningSummaryViewList.stream().map(earningSummaryView -> EarningSummaryDTO.builder()
