@@ -1,7 +1,7 @@
 package com.devlucasmoreira.investmentevaluation.server.service.earning;
 
-import com.devlucasmoreira.investmentevaluation.server.domain.Earning;
 import com.devlucasmoreira.investmentevaluation.server.domain.Active;
+import com.devlucasmoreira.investmentevaluation.server.domain.Earning;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.EarningFactory;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.EarningRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningResponse;
@@ -30,6 +30,10 @@ public class EarningCreateService {
         Earning earning = EarningFactory.build(earningRequest, active);
 
         Objects.requireNonNull(cacheManager.getCache("earningList")).clear();
+        Objects.requireNonNull(cacheManager.getCache("earningSummaryActive")).clear();
+        Objects.requireNonNull(cacheManager.getCache("earningSummaryMonth")).clear();
+        Objects.requireNonNull(cacheManager.getCache("earningSummaryTotal")).clear();
+        Objects.requireNonNull(cacheManager.getCache("earningSummaryComplete")).clear();
         return EarningFactory.buildResponse(earningRepository.save(earning));
     }
 

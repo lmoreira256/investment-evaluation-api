@@ -2,7 +2,6 @@ package com.devlucasmoreira.investmentevaluation.server.repository;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.Earning;
 import com.devlucasmoreira.investmentevaluation.server.domain.view.EarningSummaryView;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,8 +15,10 @@ import java.util.UUID;
 @Repository
 public interface EarningRepository extends JpaRepository<Earning, UUID> {
 
+    List<Earning> findTop30ByOrderByCreatedAtDesc();
+
     @Query("SELECT e FROM Earning e WHERE UPPER(e.active.name) LIKE %:active%")
-    Page<Earning> findByActive(@Param("active") String active, Pageable pageable);
+    List<Earning> findByActive(@Param("active") String active);
 
     @Query("SELECT SUM(e.amountPaid) FROM Earning e")
     BigDecimal getTotalValue();
@@ -46,5 +47,16 @@ public interface EarningRepository extends JpaRepository<Earning, UUID> {
             "ORDER BY DATE_TRUNC('month', e.payday) ASC " +
             "LIMIT 24", nativeQuery = true)
     List<EarningSummaryView> getEarningSummaryByMonth(@Param("month") String month);
+
+    @Query(value = "SELECT SUM(e.amount_paid) " +
+            "FROM earning e " +
+            "WHERE DATE_TRUNC('month', e.payday) = DATE_TRUNC('month', now()) " +
+            "AND DATE_TRUNC('year', e.payday) = DATE_TRUNC('year', now())", nativeQuery = true)
+    BigDecimal getTotalLastMonth();
+
+    @Query(value = "SELECT SUM(e.amount_paid) " +
+            "FROM earning e " +
+            "WHERE DATE_TRUNC('year', e.payday) = DATE_TRUNC('year', now())", nativeQuery = true)
+    BigDecimal getTotalLastYear();
 
 }

@@ -4,7 +4,9 @@ import com.devlucasmoreira.investmentevaluation.server.domain.Active;
 import com.devlucasmoreira.investmentevaluation.server.domain.Earning;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.EarningRequest;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.EarningResponse;
-import org.springframework.data.domain.Page;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class EarningFactory {
 
@@ -27,8 +29,8 @@ public class EarningFactory {
                 .build();
     }
 
-    public static Page<EarningResponse> buildPageResponse(Page<Earning> earningPage) {
-        return earningPage.map(EarningFactory::buildResponse);
+    public static List<EarningResponse> buildListResponse(List<Earning> earningList) {
+        return earningList.stream().map(EarningFactory::buildResponse).collect(Collectors.toList());
     }
 
 }
