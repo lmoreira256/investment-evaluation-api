@@ -25,7 +25,7 @@ public class EarningFactory {
                 .amountPaid(earning.getAmountPaid())
                 .description(earning.getDescription())
                 .id(earning.getId())
-                .stockName(earning.getActive().getName())
+                .activeName(earning.getActive().getName())
                 .build();
     }
 

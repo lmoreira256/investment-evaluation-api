@@ -96,5 +96,4 @@ public class EarningResource {
         return new ResponseEntity<>(earningSummaryCompleteService.execute(), HttpStatus.OK);
     }
 
-
 }
