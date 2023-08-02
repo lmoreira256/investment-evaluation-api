@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 public class EarningGetTotalLastMonthService {
@@ -14,7 +15,7 @@ public class EarningGetTotalLastMonthService {
 
     public BigDecimal execute() {
 
-        return earningRepository.getTotalLastMonth();
+        return Optional.ofNullable(earningRepository.getTotalLastMonth()).orElse(BigDecimal.ZERO);
     }
 
 }
