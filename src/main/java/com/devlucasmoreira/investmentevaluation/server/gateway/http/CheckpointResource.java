@@ -3,7 +3,7 @@ package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.CheckpointDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.CheckpointFactory;
 import com.devlucasmoreira.investmentevaluation.server.service.checkpoint.CheckpointCreateService;
-import com.devlucasmoreira.investmentevaluation.server.service.checkpoint.CheckpointListService;
+import com.devlucasmoreira.investmentevaluation.server.service.checkpoint.general.CheckpointGeneralListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ public class CheckpointResource {
     private CheckpointCreateService checkpointCreateService;
 
     @Autowired
-    private CheckpointListService checkpointListService;
+    private CheckpointGeneralListService checkpointGeneralListService;
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,7 +39,7 @@ public class CheckpointResource {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CheckpointDTO>> get() {
 
-        return new ResponseEntity<>(CheckpointFactory.buildListDTO(checkpointListService.execute()), HttpStatus.OK);
+        return new ResponseEntity<>(CheckpointFactory.buildListDTO(checkpointGeneralListService.execute()), HttpStatus.OK);
     }
 
 }

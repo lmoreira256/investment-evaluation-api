@@ -1,33 +1,28 @@
-package com.devlucasmoreira.investmentevaluation.server.service.stock.checkpoint;
+package com.devlucasmoreira.investmentevaluation.server.service.checkpoint.real.estate.fund;
 
-import com.devlucasmoreira.investmentevaluation.server.domain.StockCheckpoint;
+import com.devlucasmoreira.investmentevaluation.server.domain.RealEstateFundCheckpoint;
 import com.devlucasmoreira.investmentevaluation.server.enums.ActiveTypeEnum;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveSummaryDTO;
-import com.devlucasmoreira.investmentevaluation.server.repository.StockCheckpointRepository;
+import com.devlucasmoreira.investmentevaluation.server.repository.RealEstateFundCheckpointRepository;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetSummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
-public class StockCheckpointCreateService {
+public class CheckpointRealEstateFundCreateService {
 
     @Autowired
-    private StockCheckpointRepository stockCheckpointRepository;
-
-    @Autowired
-    private CacheManager cacheManager;
+    private RealEstateFundCheckpointRepository realEstateFundCheckpointRepository;
 
     @Autowired
     private ActiveGetSummaryService activeGetSummaryService;
 
-    public StockCheckpoint execute() {
-        ActiveSummaryDTO activeSummaryDTO = activeGetSummaryService.execute(List.of(ActiveTypeEnum.STOCK));
+    public RealEstateFundCheckpoint execute() {
+        ActiveSummaryDTO activeSummaryDTO = activeGetSummaryService.execute(List.of(ActiveTypeEnum.REAL_ESTATE_FUND));
 
-        StockCheckpoint stockCheckpoint = StockCheckpoint.builder()
+        RealEstateFundCheckpoint realEstateFundCheckpoint = RealEstateFundCheckpoint.builder()
                 .amount(activeSummaryDTO.getAmount())
                 .currentValue(activeSummaryDTO.getCurrentValue())
                 .purchaseValue(activeSummaryDTO.getPurchaseValue())
@@ -35,8 +30,7 @@ public class StockCheckpointCreateService {
                 .resultPercentageValue(activeSummaryDTO.getResultPercentageValue())
                 .build();
 
-        Objects.requireNonNull(cacheManager.getCache("stockCheckpointList")).clear();
-        return stockCheckpointRepository.save(stockCheckpoint);
+        return realEstateFundCheckpointRepository.save(realEstateFundCheckpoint);
     }
 
 }

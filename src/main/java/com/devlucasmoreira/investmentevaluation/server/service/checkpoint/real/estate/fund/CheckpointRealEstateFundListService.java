@@ -1,4 +1,4 @@
-package com.devlucasmoreira.investmentevaluation.server.service.real.estate.fund.checkpoint;
+package com.devlucasmoreira.investmentevaluation.server.service.checkpoint.real.estate.fund;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.RealEstateFundCheckpoint;
 import com.devlucasmoreira.investmentevaluation.server.repository.RealEstateFundCheckpointRepository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RealEstateFundCheckpointListService {
+public class CheckpointRealEstateFundListService {
 
     @Autowired
     private RealEstateFundCheckpointRepository realEstateFundCheckpointRepository;

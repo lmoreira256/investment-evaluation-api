@@ -1,4 +1,4 @@
-package com.devlucasmoreira.investmentevaluation.server.service.checkpoint;
+package com.devlucasmoreira.investmentevaluation.server.service.checkpoint.general;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.Checkpoint;
 import com.devlucasmoreira.investmentevaluation.server.repository.CheckpointRepository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CheckpointListService {
+public class CheckpointGeneralListService {
 
     @Autowired
     private CheckpointRepository checkpointRepository;

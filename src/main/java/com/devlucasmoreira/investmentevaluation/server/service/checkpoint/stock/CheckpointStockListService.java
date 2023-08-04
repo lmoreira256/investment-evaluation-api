@@ -1,4 +1,4 @@
-package com.devlucasmoreira.investmentevaluation.server.service.stock.checkpoint;
+package com.devlucasmoreira.investmentevaluation.server.service.checkpoint.stock;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.StockCheckpoint;
 import com.devlucasmoreira.investmentevaluation.server.repository.StockCheckpointRepository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StockCheckpointListService {
+public class CheckpointStockListService {
 
     @Autowired
     private StockCheckpointRepository stockCheckpointRepository;
