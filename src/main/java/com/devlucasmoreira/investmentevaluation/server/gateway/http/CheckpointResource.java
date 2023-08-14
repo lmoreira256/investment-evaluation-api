@@ -29,9 +29,9 @@ public class CheckpointResource {
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CheckpointDTO> create() {
+    public ResponseEntity<List<CheckpointDTO>> create() {
 
-        return new ResponseEntity<>(CheckpointFactory.buildDTO(checkpointCreateService.execute()), HttpStatus.CREATED);
+        return new ResponseEntity<>(checkpointCreateService.execute(), HttpStatus.CREATED);
     }
 
     @CrossOrigin
