@@ -14,7 +14,7 @@ public class CheckpointStockListService {
     private StockCheckpointRepository stockCheckpointRepository;
 
     public List<StockCheckpoint> execute() {
-        return stockCheckpointRepository.findTop12ByOrderByCreatedAtDesc();
+        return stockCheckpointRepository.findTop30ByOrderByCreatedAtDesc();
     }
 
 }

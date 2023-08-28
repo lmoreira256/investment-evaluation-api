@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface StockCheckpointRepository extends JpaRepository<StockCheckpoint, UUID> {
 
-    List<StockCheckpoint> findTop12ByOrderByCreatedAtDesc();
+    List<StockCheckpoint> findTop30ByOrderByCreatedAtDesc();
 
 }

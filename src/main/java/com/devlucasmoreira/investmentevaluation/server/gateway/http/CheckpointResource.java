@@ -4,6 +4,8 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.Checkpo
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.CheckpointFactory;
 import com.devlucasmoreira.investmentevaluation.server.service.checkpoint.CheckpointCreateService;
 import com.devlucasmoreira.investmentevaluation.server.service.checkpoint.general.CheckpointGeneralListService;
+import com.devlucasmoreira.investmentevaluation.server.service.checkpoint.real.estate.fund.CheckpointRealEstateFundListService;
+import com.devlucasmoreira.investmentevaluation.server.service.checkpoint.stock.CheckpointStockListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,12 @@ public class CheckpointResource {
     @Autowired
     private CheckpointGeneralListService checkpointGeneralListService;
 
+    @Autowired
+    private CheckpointStockListService checkpointStockListService;
+
+    @Autowired
+    private CheckpointRealEstateFundListService checkpointRealEstateFundListService;
+
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CheckpointDTO>> create() {
@@ -40,6 +48,24 @@ public class CheckpointResource {
     public ResponseEntity<List<CheckpointDTO>> get() {
 
         return new ResponseEntity<>(CheckpointFactory.buildListDTO(checkpointGeneralListService.execute()), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @Cacheable(value = "stockCheckpointList")
+    @GetMapping(value = "/stock", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CheckpointDTO>> getStockList() {
+
+        return new ResponseEntity<>(CheckpointFactory
+                .buildListStockCheckpointDTO(checkpointStockListService.execute()), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @Cacheable(value = "realEstateFundCheckpointList")
+    @GetMapping(value = "/real-estate-fund", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CheckpointDTO>> getRealEstateFundList() {
+
+        return new ResponseEntity<>(CheckpointFactory
+                .buildListRealEstateFundCheckpointDTO(checkpointRealEstateFundListService.execute()), HttpStatus.OK);
     }
 
 }

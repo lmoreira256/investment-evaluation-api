@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface RealEstateFundCheckpointRepository extends JpaRepository<RealEstateFundCheckpoint, UUID> {
 
-    List<RealEstateFundCheckpoint> findTop12ByOrderByCreatedAtDesc();
+    List<RealEstateFundCheckpoint> findTop30ByOrderByCreatedAtDesc();
 
 }

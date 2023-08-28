@@ -14,7 +14,7 @@ public class CheckpointRealEstateFundListService {
     private RealEstateFundCheckpointRepository realEstateFundCheckpointRepository;
 
     public List<RealEstateFundCheckpoint> execute() {
-        return realEstateFundCheckpointRepository.findTop12ByOrderByCreatedAtDesc();
+        return realEstateFundCheckpointRepository.findTop30ByOrderByCreatedAtDesc();
     }
 
 }
