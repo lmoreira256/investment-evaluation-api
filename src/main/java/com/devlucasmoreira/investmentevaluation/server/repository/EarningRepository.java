@@ -59,4 +59,14 @@ public interface EarningRepository extends JpaRepository<Earning, UUID> {
             "WHERE DATE_TRUNC('year', e.payday) = DATE_TRUNC('year', now())", nativeQuery = true)
     BigDecimal getTotalLastYear();
 
+    @Query(value = "select " +
+            "sum(sum) / count(*) " +
+            "from ( " +
+            " select " +
+            "   SUM(e.amount_paid) " +
+            " FROM Earning e " +
+            " GROUP BY DATE_TRUNC('month', e.payday) " +
+            ") as allMonths", nativeQuery = true)
+    BigDecimal getAveragePerMonth();
+
 }

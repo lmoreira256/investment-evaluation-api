@@ -8,14 +8,14 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
-public class EarningGetTotalLastYearService {
+public class EarningGetAveragePerMonthService {
 
     @Autowired
     private EarningRepository earningRepository;
 
     public BigDecimal execute() {
 
-        return Optional.ofNullable(earningRepository.getTotalLastYear()).orElse(BigDecimal.ZERO);
+        return Optional.ofNullable(earningRepository.getAveragePerMonth()).orElse(BigDecimal.ZERO);
     }
 
 }

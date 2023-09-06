@@ -26,6 +26,9 @@ public class EarningSummaryCompleteService {
     @Autowired
     private ActiveGetSummaryService activeGetSummaryService;
 
+    @Autowired
+    private EarningGetAveragePerMonthService earningGetAveragePerMonthService;
+
     public EarningSummaryCompleteDTO execute() {
         ActiveSummaryDTO activeSummaryDTO = activeGetSummaryService
                 .execute(List.of(ActiveTypeEnum.REAL_ESTATE_FUND, ActiveTypeEnum.STOCK));
@@ -40,6 +43,7 @@ public class EarningSummaryCompleteService {
                 .totalLastMonth(earningGetTotalLastMonthService.execute())
                 .totalLastYear(earningGetTotalLastYearService.execute())
                 .performancePercentage(performancePercentage)
+                .averagePerMonth(earningGetAveragePerMonthService.execute())
                 .build();
     }
 

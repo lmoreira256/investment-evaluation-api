@@ -21,4 +21,6 @@ public class EarningSummaryCompleteDTO {
 
     private BigDecimal performancePercentage;
 
+    private BigDecimal averagePerMonth;
+
 }

@@ -20,13 +20,13 @@ public class EarningCreateService {
     private EarningRepository earningRepository;
 
     @Autowired
-    private EarningCleanCacheService earningSummaryForActiveService;
+    private EarningCleanCacheService earningCleanCacheService;
 
     public EarningResponse execute(EarningRequest earningRequest) {
         Active active = activeGetByIdService.execute(earningRequest.getActiveId());
         Earning earning = EarningFactory.build(earningRequest, active);
 
-        earningSummaryForActiveService.execute();
+        earningCleanCacheService.execute();
         return EarningFactory.buildResponse(earningRepository.save(earning));
     }
 
