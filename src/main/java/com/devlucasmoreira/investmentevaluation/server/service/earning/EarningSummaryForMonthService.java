@@ -8,17 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 public class EarningSummaryForMonthService {
 
+    private final static String SORT_DIRECTION_ASC = "ASC";
+
     @Autowired
     private EarningRepository earningRepository;
 
-    public List<EarningSummaryDTO> execute(String month) {
+    public List<EarningSummaryDTO> execute(String month, String sortDirection) {
+        sortDirection = Objects.nonNull(sortDirection) ? sortDirection : SORT_DIRECTION_ASC;
+
         List<EarningSummaryView> earningSummaryViewList = Strings.isBlank(month) ?
-                earningRepository.getEarningSummaryForMonth() :
+                earningRepository.getEarningSummaryForMonth(sortDirection) :
                 earningRepository.getEarningSummaryByMonth(month);
 
         return earningSummaryViewList.stream().map(earningSummaryView -> EarningSummaryDTO.builder()

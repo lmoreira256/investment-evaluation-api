@@ -75,9 +75,10 @@ public class EarningResource {
     @CrossOrigin
     @Cacheable(value = "earningSummaryMonth")
     @GetMapping(value = "/summary/month", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<EarningSummaryDTO>> summaryMonth(@Param("month") String month) {
+    public ResponseEntity<List<EarningSummaryDTO>> summaryMonth(
+            @Param("month") String month, @Param("sortDirection") String sortDirection) {
 
-        return new ResponseEntity<>(earningSummaryForMonthService.execute(month), HttpStatus.OK);
+        return new ResponseEntity<>(earningSummaryForMonthService.execute(month, sortDirection), HttpStatus.OK);
     }
 
     @CrossOrigin

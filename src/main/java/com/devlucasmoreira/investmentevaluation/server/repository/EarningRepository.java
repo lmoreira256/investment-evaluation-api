@@ -36,9 +36,11 @@ public interface EarningRepository extends JpaRepository<Earning, UUID> {
     @Query(value = "SELECT TO_CHAR(DATE_TRUNC('month', e.payday), 'MM/YYYY') AS item, SUM(e.amount_paid) as totalValue " +
             "FROM Earning e " +
             "GROUP BY DATE_TRUNC('month', e.payday) " +
-            "ORDER BY DATE_TRUNC('month', e.payday) ASC " +
+            "ORDER BY " +
+            "CASE WHEN :sortDirection = 'ASC' THEN DATE_TRUNC('month', e.payday) END ASC, " +
+            "CASE WHEN :sortDirection = 'DESC' THEN DATE_TRUNC('month', e.payday) END DESC " +
             "LIMIT 24", nativeQuery = true)
-    List<EarningSummaryView> getEarningSummaryForMonth();
+    List<EarningSummaryView> getEarningSummaryForMonth(@Param("sortDirection") String sortDirection);
 
     @Query(value = "SELECT TO_CHAR(DATE_TRUNC('month', e.payday), 'MM/YYYY') AS item, SUM(e.amount_paid) as totalValue " +
             "FROM Earning e " +
