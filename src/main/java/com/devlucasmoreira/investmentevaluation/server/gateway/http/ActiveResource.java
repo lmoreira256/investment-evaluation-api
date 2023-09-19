@@ -1,8 +1,8 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
 import com.devlucasmoreira.investmentevaluation.server.enums.ActiveTypeEnum;
-import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveDTO;
+import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.ActiveFactory;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveCreateService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetByIdService;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,7 +48,7 @@ public class ActiveResource {
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ActiveDTO> create(@RequestBody ActiveDTO activeDTO) {
+    public ResponseEntity<ActiveDTO> create(@Valid @RequestBody ActiveDTO activeDTO) {
 
         return new ResponseEntity<>(ActiveFactory.buildDTO(activeCreateService.execute(activeDTO)), HttpStatus.CREATED);
     }
