@@ -1,9 +1,11 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.model.factory;
 
 import com.devlucasmoreira.investmentevaluation.server.domain.Active;
+import com.devlucasmoreira.investmentevaluation.server.enums.ActiveTypeEnum;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveDTO;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ActiveFactory {
@@ -18,8 +20,8 @@ public class ActiveFactory {
                 .averageValue(activeDTO.getAverageValue())
                 .resultValue(activeDTO.getResultValue())
                 .resultPercentageValue(activeDTO.getResultPercentageValue())
-                .activeType(activeDTO.getActiveType())
-                .enabled(true)
+                .activeType(ActiveTypeEnum.valueOf(activeDTO.getActiveType()))
+                .enabled(Objects.isNull(activeDTO.getEnabled()) || activeDTO.getEnabled())
                 .objective(activeDTO.getObjective())
                 .build();
     }
@@ -35,7 +37,7 @@ public class ActiveFactory {
                 .resultPercentageValue(active.getResultPercentageValue())
                 .purchaseValue(active.getPurchaseValue())
                 .averageValue(active.getAverageValue())
-                .activeType(active.getActiveType())
+                .activeType(active.getActiveType().name())
                 .createdAt(active.getCreatedAt())
                 .updatedAt(active.getUpdatedAt())
                 .enabled(active.getEnabled())
