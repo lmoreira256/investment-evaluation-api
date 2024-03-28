@@ -75,4 +75,7 @@ public class Active {
     @Column(name = "objective")
     private Integer objective;
 
+    @Column(name = "actual_value")
+    private BigDecimal actualValue;
+
 }
