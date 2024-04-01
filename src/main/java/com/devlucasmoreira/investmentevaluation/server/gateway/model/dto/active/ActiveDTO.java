@@ -1,7 +1,6 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active;
 
 import com.devlucasmoreira.investmentevaluation.server.config.annotation.EnumNamePattern;
-import com.devlucasmoreira.investmentevaluation.server.enums.ActiveTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,11 +37,11 @@ public class ActiveDTO {
     @Min(value = 0, message = "A quantidade do ativo precisa ser maior ou igual à 0")
     private Integer amount;
 
-    @NotNull(message = "O valor atual do ativo é obrigatória")
+    @NotNull(message = "O valor atual do ativo é obrigatório")
     @Min(value = 0, message = "O valor atual do ativo precisa ser maior ou igual à 0")
     private BigDecimal currentValue;
 
-    @NotNull(message = "O resultado do ativo é obrigatória")
+    @NotNull(message = "O resultado do ativo é obrigatório")
     @Min(value = 0, message = "O resultado do ativo precisa ser maior ou igual à 0")
     private BigDecimal resultValue;
 
@@ -50,7 +49,7 @@ public class ActiveDTO {
     @Min(value = 0, message = "A porcentagem do resultado do ativo precisa ser maior ou igual à 0")
     private BigDecimal resultPercentageValue;
 
-    @NotNull(message = "O valor de compra do ativo é obrigatória")
+    @NotNull(message = "O valor de compra do ativo é obrigatório")
     @Min(value = 0, message = "O valor de compra do ativo precisa ser maior ou igual à 0")
     private BigDecimal purchaseValue;
 
@@ -67,8 +66,12 @@ public class ActiveDTO {
 
     private Boolean enabled;
 
-    @NotNull(message = "O objetivo de compra do ativo é obrigatória")
+    @NotNull(message = "O objetivo de compra do ativo é obrigatório")
     @Min(value = 0, message = "O objetivo de compra do ativo precisa ser maior ou igual à 0")
     private Integer objective;
+
+    @NotNull(message = "O valor atual do ativo é obrigatório")
+    @Min(value = 0, message = "O valor atual do ativo precisa ser maior ou igual à 0")
+    private BigDecimal actualValue;
 
 }

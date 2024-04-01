@@ -23,6 +23,7 @@ public class ActiveFactory {
                 .activeType(ActiveTypeEnum.valueOf(activeDTO.getActiveType()))
                 .enabled(Objects.isNull(activeDTO.getEnabled()) || activeDTO.getEnabled())
                 .objective(activeDTO.getObjective())
+                .actualValue(activeDTO.getActualValue())
                 .build();
     }
 
@@ -42,6 +43,7 @@ public class ActiveFactory {
                 .updatedAt(active.getUpdatedAt())
                 .enabled(active.getEnabled())
                 .objective(active.getObjective())
+                .actualValue(active.getActualValue())
                 .build();
     }
 

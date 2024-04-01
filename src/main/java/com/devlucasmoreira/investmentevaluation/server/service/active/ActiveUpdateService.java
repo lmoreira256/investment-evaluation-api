@@ -6,6 +6,7 @@ import com.devlucasmoreira.investmentevaluation.server.repository.ActiveReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Service
@@ -31,6 +32,7 @@ public class ActiveUpdateService {
         active.setResultPercentageValue(activeDTO.getResultPercentageValue());
         active.setObjective(activeDTO.getObjective());
         active.setEnabled(activeDTO.getEnabled());
+        active.setActualValue(activeDTO.getActualValue());
 
         activeCleanCacheService.execute();
         return stockRepository.save(active);
