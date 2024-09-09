@@ -44,6 +44,7 @@ public class ActiveFactory {
                 .enabled(active.getEnabled())
                 .objective(active.getObjective())
                 .currentPrice(active.getCurrentPrice())
+                .quantityToBuy(active.getObjective() - active.getQuantity())
                 .build();
     }
 

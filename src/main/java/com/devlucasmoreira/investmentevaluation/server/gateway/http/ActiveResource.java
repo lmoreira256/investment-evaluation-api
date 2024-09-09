@@ -9,6 +9,7 @@ import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetB
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetSummaryService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveListService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveUpdateService;
+import com.devlucasmoreira.investmentevaluation.server.service.active.ListNextActivesToBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,9 @@ public class ActiveResource {
     @Autowired
     private ActiveGetSummaryService activeGetSummaryService;
 
+    @Autowired
+    private ListNextActivesToBuyService listNextActivesToBuyService;
+
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ActiveDTO> create(@Valid @RequestBody ActiveDTO activeDTO) {
@@ -81,6 +85,14 @@ public class ActiveResource {
     public ResponseEntity<ActiveSummaryDTO> summary() {
 
         return new ResponseEntity<>(activeGetSummaryService.execute(List.of(ActiveTypeEnum.values())), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @Cacheable(value = "activesToBuy")
+    @GetMapping(value = "/actives-to-buy", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ActiveDTO>> activesToBuy() {
+
+        return new ResponseEntity<>(ActiveFactory.buildListDTO(listNextActivesToBuyService.execute()), HttpStatus.OK);
     }
 
 }
