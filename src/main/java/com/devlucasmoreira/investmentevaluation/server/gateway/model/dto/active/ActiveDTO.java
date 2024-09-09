@@ -74,4 +74,6 @@ public class ActiveDTO {
     @Min(value = 0, message = "O valor atual do ativo precisa ser maior ou igual à 0")
     private BigDecimal currentPrice;
 
+    private Integer quantityToBuy;
+
 }

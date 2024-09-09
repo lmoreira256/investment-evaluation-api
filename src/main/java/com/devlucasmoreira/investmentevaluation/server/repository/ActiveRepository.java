@@ -41,4 +41,7 @@ public interface ActiveRepository extends JpaRepository<Active, UUID> {
     @Query("SELECT a FROM Active a WHERE a.enabled = true AND a.activeType = :activeTypeEnum ORDER BY a.name ASC")
     List<Active> listActiveByType(@Param("activeTypeEnum") ActiveTypeEnum activeTypeEnum);
 
+    @Query("SELECT a FROM Active a WHERE a.enabled = true AND a.quantity < a.objective ORDER BY a.netResult ASC")
+    List<Active> listActivesToBuy();
+
 }
