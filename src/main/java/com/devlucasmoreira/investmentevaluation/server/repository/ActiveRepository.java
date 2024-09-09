@@ -23,19 +23,19 @@ public interface ActiveRepository extends JpaRepository<Active, UUID> {
     @Query("SELECT a FROM Active a WHERE UPPER(a.name) LIKE %:name%")
     Optional<Active> findByName(@Param("name") String name);
 
-    @Query("SELECT SUM(a.amount) FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
-    Integer getTotalAmountByType(@Param("activeTypeList") List<ActiveTypeEnum> activeTypeList);
+    @Query("SELECT SUM(a.quantity) FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
+    Integer getTotalQuantityByType(@Param("activeTypeList") List<ActiveTypeEnum> activeTypeList);
 
-    @Query("SELECT SUM(a.purchaseValue) FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
-    BigDecimal getTotalPurchaseValueByType(@Param("activeTypeList") List<ActiveTypeEnum> activeTypeList);
+    @Query("SELECT SUM(a.costValue) FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
+    BigDecimal getTotalCostValueByType(@Param("activeTypeList") List<ActiveTypeEnum> activeTypeList);
 
     @Query("SELECT SUM(a.currentValue) FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
     BigDecimal getTotalCurrentValueByType(@Param("activeTypeList") List<ActiveTypeEnum> activeTypeList);
 
-    @Query("SELECT SUM(a.resultValue) FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
-    BigDecimal getTotalResultValueByType(@Param("activeTypeList") List<ActiveTypeEnum> activeTypeList);
+    @Query("SELECT SUM(a.netResult) FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
+    BigDecimal getTotalNetResultByType(@Param("activeTypeList") List<ActiveTypeEnum> activeTypeList);
 
-    @Query("SELECT ((SUM(a.currentValue) - SUM(a.purchaseValue)) / SUM(a.purchaseValue)) * 100 FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
+    @Query("SELECT ((SUM(a.currentValue) - SUM(a.costValue)) / SUM(a.costValue)) * 100 FROM Active a WHERE a.activeType IN (:activeTypeList) AND a.enabled = true")
     BigDecimal getTotalResulPercentageValueByType(@Param("activeTypeList") List<ActiveTypeEnum> activeTypeList);
 
     @Query("SELECT a FROM Active a WHERE a.enabled = true AND a.activeType = :activeTypeEnum ORDER BY a.name ASC")

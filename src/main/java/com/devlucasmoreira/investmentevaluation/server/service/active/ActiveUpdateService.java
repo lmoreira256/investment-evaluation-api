@@ -6,7 +6,6 @@ import com.devlucasmoreira.investmentevaluation.server.repository.ActiveReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Service
@@ -23,16 +22,16 @@ public class ActiveUpdateService {
 
     public Active execute(UUID id, ActiveDTO activeDTO) {
         Active active = activeGetByIdService.execute(id);
-        active.setAmount(activeDTO.getAmount());
+        active.setQuantity(activeDTO.getQuantity());
         active.setDescription(activeDTO.getDescription());
         active.setCurrentValue(activeDTO.getCurrentValue());
-        active.setPurchaseValue(activeDTO.getPurchaseValue());
-        active.setAverageValue(activeDTO.getAverageValue());
-        active.setResultValue(activeDTO.getResultValue());
-        active.setResultPercentageValue(activeDTO.getResultPercentageValue());
+        active.setCostValue(activeDTO.getCostValue());
+        active.setAverageCost(activeDTO.getAverageCost());
+        active.setNetResult(activeDTO.getNetResult());
+        active.setPercentageResult(activeDTO.getPercentageResult());
         active.setObjective(activeDTO.getObjective());
         active.setEnabled(activeDTO.getEnabled());
-        active.setActualValue(activeDTO.getActualValue());
+        active.setCurrentPrice(activeDTO.getCurrentPrice());
 
         activeCleanCacheService.execute();
         return stockRepository.save(active);

@@ -39,23 +39,23 @@ public class Active {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "amount")
-    private Integer amount;
+    @Column(name = "quantity")
+    private Integer quantity;
 
     @Column(name = "current_value")
     private BigDecimal currentValue;
 
-    @Column(name = "result_value")
-    private BigDecimal resultValue;
+    @Column(name = "net_result")
+    private BigDecimal netResult;
 
-    @Column(name = "result_percentage_value")
-    private BigDecimal resultPercentageValue;
+    @Column(name = "percentage_result")
+    private BigDecimal percentageResult;
 
-    @Column(name = "purchase_value")
-    private BigDecimal purchaseValue;
+    @Column(name = "cost_value")
+    private BigDecimal costValue;
 
-    @Column(name = "average_value")
-    private BigDecimal averageValue;
+    @Column(name = "average_cost")
+    private BigDecimal averageCost;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "active_type")
@@ -75,7 +75,7 @@ public class Active {
     @Column(name = "objective")
     private Integer objective;
 
-    @Column(name = "actual_value")
-    private BigDecimal actualValue;
+    @Column(name = "current_price")
+    private BigDecimal currentPrice;
 
 }

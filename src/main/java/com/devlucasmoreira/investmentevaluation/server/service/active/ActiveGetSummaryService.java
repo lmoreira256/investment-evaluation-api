@@ -16,10 +16,10 @@ public class ActiveGetSummaryService {
 
     public ActiveSummaryDTO execute(List<ActiveTypeEnum> activeTypeEnumList) {
         return ActiveSummaryDTO.builder()
-                .amount(activeRepository.getTotalAmountByType(activeTypeEnumList))
+                .amount(activeRepository.getTotalQuantityByType(activeTypeEnumList))
                 .currentValue(activeRepository.getTotalCurrentValueByType(activeTypeEnumList))
-                .purchaseValue(activeRepository.getTotalPurchaseValueByType(activeTypeEnumList))
-                .resultValue(activeRepository.getTotalResultValueByType(activeTypeEnumList))
+                .purchaseValue(activeRepository.getTotalCostValueByType(activeTypeEnumList))
+                .resultValue(activeRepository.getTotalNetResultByType(activeTypeEnumList))
                 .resultPercentageValue(activeRepository.getTotalResulPercentageValueByType(activeTypeEnumList))
                 .build();
     }
