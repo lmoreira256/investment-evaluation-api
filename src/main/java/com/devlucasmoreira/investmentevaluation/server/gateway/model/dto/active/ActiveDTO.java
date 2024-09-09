@@ -35,7 +35,7 @@ public class ActiveDTO {
 
     @NotNull(message = "A quantidade do ativo é obrigatória")
     @Min(value = 0, message = "A quantidade do ativo precisa ser maior ou igual à 0")
-    private Integer amount;
+    private Integer quantity;
 
     @NotNull(message = "O valor atual do ativo é obrigatório")
     @Min(value = 0, message = "O valor atual do ativo precisa ser maior ou igual à 0")
@@ -43,19 +43,19 @@ public class ActiveDTO {
 
     @NotNull(message = "O resultado do ativo é obrigatório")
     @Min(value = 0, message = "O resultado do ativo precisa ser maior ou igual à 0")
-    private BigDecimal resultValue;
+    private BigDecimal netResult;
 
     @NotNull(message = "A porcentagem do resultado do ativo é obrigatória")
     @Min(value = 0, message = "A porcentagem do resultado do ativo precisa ser maior ou igual à 0")
-    private BigDecimal resultPercentageValue;
+    private BigDecimal percentageResult;
 
     @NotNull(message = "O valor de compra do ativo é obrigatório")
     @Min(value = 0, message = "O valor de compra do ativo precisa ser maior ou igual à 0")
-    private BigDecimal purchaseValue;
+    private BigDecimal costValue;
 
     @NotNull(message = "A média de compra do ativo é obrigatória")
     @Min(value = 0, message = "A média de compra do ativo precisa ser maior ou igual à 0")
-    private BigDecimal averageValue;
+    private BigDecimal averageCost;
 
     @EnumNamePattern(regexp = "STOCK|REAL_ESTATE_FUND", message = "O tipo do ativo deve ser entre esses valores: STOCK ou REAL_ESTATE_FUND")
     private String activeType;
@@ -72,6 +72,6 @@ public class ActiveDTO {
 
     @NotNull(message = "O valor atual do ativo é obrigatório")
     @Min(value = 0, message = "O valor atual do ativo precisa ser maior ou igual à 0")
-    private BigDecimal actualValue;
+    private BigDecimal currentPrice;
 
 }
