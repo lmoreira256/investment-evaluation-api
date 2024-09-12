@@ -44,4 +44,13 @@ public interface ActiveRepository extends JpaRepository<Active, UUID> {
     @Query("SELECT a FROM Active a WHERE a.enabled = true AND a.quantity < a.objective ORDER BY a.netResult ASC")
     List<Active> listActivesToBuy();
 
+    @Query("SELECT SUM(a.currentValue) FROM Active a WHERE a.enabled = true")
+    BigDecimal sumCurrentValueEnabled();
+
+    @Query("SELECT SUM(a.currentValue) FROM Active a WHERE a.enabled = true AND a.activeType = 'STOCK'")
+    BigDecimal sumStockCurrentValueEnabled();
+
+    @Query("SELECT SUM(a.currentValue) FROM Active a WHERE a.enabled = true AND a.activeType = 'REAL_ESTATE_FUND'")
+    BigDecimal sumRealEstateFundCurrentValueEnabled();
+
 }

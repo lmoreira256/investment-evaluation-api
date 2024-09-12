@@ -1,6 +1,7 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
 import com.devlucasmoreira.investmentevaluation.server.enums.ActiveTypeEnum;
+import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.KeyValueDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.ActiveFactory;
@@ -9,8 +10,8 @@ import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetB
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetSummaryService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveListService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveUpdateService;
+import com.devlucasmoreira.investmentevaluation.server.service.active.GetPortfolioPercentageService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ListNextActivesToBuyService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,23 +33,29 @@ import java.util.UUID;
 @RequestMapping("/active")
 public class ActiveResource {
 
-    @Autowired
-    private ActiveCreateService activeCreateService;
+    private final ActiveCreateService activeCreateService;
+    private final ActiveListService activeListService;
+    private final ActiveUpdateService activeUpdateService;
+    private final ActiveGetByIdService activeGetByIdService;
+    private final ActiveGetSummaryService activeGetSummaryService;
+    private final ListNextActivesToBuyService listNextActivesToBuyService;
+    private final GetPortfolioPercentageService getPortfolioPercentageService;
 
-    @Autowired
-    private ActiveListService activeListService;
-
-    @Autowired
-    private ActiveUpdateService activeUpdateService;
-
-    @Autowired
-    private ActiveGetByIdService activeGetByIdService;
-
-    @Autowired
-    private ActiveGetSummaryService activeGetSummaryService;
-
-    @Autowired
-    private ListNextActivesToBuyService listNextActivesToBuyService;
+    ActiveResource(ActiveCreateService activeCreateService,
+                   ActiveListService activeListService,
+                   ActiveUpdateService activeUpdateService,
+                   ActiveGetByIdService activeGetByIdService,
+                   ActiveGetSummaryService activeGetSummaryService,
+                   ListNextActivesToBuyService listNextActivesToBuyService,
+                   GetPortfolioPercentageService getPortfolioPercentageService) {
+        this.activeCreateService = activeCreateService;
+        this.activeListService = activeListService;
+        this.activeUpdateService = activeUpdateService;
+        this.activeGetByIdService = activeGetByIdService;
+        this.activeGetSummaryService = activeGetSummaryService;
+        this.listNextActivesToBuyService = listNextActivesToBuyService;
+        this.getPortfolioPercentageService = getPortfolioPercentageService;
+    }
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -93,6 +100,13 @@ public class ActiveResource {
     public ResponseEntity<List<ActiveDTO>> activesToBuy() {
 
         return new ResponseEntity<>(ActiveFactory.buildListDTO(listNextActivesToBuyService.execute()), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/get-portfolio-percentage", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<KeyValueDTO>> getPortfolioPercentage() {
+
+        return new ResponseEntity<>(getPortfolioPercentageService.execute(), HttpStatus.OK);
     }
 
 }
