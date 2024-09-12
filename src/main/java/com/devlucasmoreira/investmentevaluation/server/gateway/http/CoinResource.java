@@ -6,7 +6,6 @@ import com.devlucasmoreira.investmentevaluation.server.service.coin.CoinCreateSe
 import com.devlucasmoreira.investmentevaluation.server.service.coin.CoinListService;
 import com.devlucasmoreira.investmentevaluation.server.service.coin.CoinUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -44,7 +43,6 @@ public class CoinResource {
         return new ResponseEntity<>(coinCreateService.execute(coinRequest), HttpStatus.CREATED);
     }
 
-    @Cacheable(value = "coinList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<CoinResponse>> list(
             @RequestParam(required = false) String name,

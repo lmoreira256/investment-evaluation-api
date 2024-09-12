@@ -14,13 +14,9 @@ public class ActiveCreateService {
     @Autowired
     private ActiveRepository activeRepository;
 
-    @Autowired
-    private ActiveCleanCacheService activeCleanCacheService;
-
     public Active execute(ActiveDTO activeDTO) {
         validateActive(activeDTO);
 
-        activeCleanCacheService.execute();
         return activeRepository.save(ActiveFactory.build(activeDTO));
     }
 

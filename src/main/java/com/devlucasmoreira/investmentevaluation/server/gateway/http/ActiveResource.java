@@ -13,7 +13,6 @@ import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveUpda
 import com.devlucasmoreira.investmentevaluation.server.service.active.GetActivePercentageService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.GetPortfolioPercentageService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ListNextActivesToBuyService;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -83,7 +82,6 @@ public class ActiveResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "activeList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ActiveDTO>> list() {
 
@@ -91,7 +89,6 @@ public class ActiveResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "activeSummary")
     @GetMapping(value = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ActiveSummaryDTO> summary() {
 
@@ -99,7 +96,6 @@ public class ActiveResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "activesToBuy")
     @GetMapping(value = "/actives-to-buy", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ActiveDTO>> activesToBuy() {
 

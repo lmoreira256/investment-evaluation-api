@@ -5,7 +5,6 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.De
 import com.devlucasmoreira.investmentevaluation.server.service.deposit.DepositCreateService;
 import com.devlucasmoreira.investmentevaluation.server.service.deposit.DepositListService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -35,7 +34,6 @@ public class DepositResource {
         return new ResponseEntity<>(depositCreateService.execute(depositRequest), HttpStatus.CREATED);
     }
 
-    @Cacheable(value = "depositList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<DepositResponse>> list(
             @PageableDefault(sort = "date", direction = Sort.Direction.DESC) Pageable pageable

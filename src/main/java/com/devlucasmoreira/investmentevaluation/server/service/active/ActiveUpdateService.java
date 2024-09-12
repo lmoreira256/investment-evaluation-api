@@ -15,9 +15,6 @@ public class ActiveUpdateService {
     private ActiveRepository stockRepository;
 
     @Autowired
-    private ActiveCleanCacheService activeCleanCacheService;
-
-    @Autowired
     private ActiveGetByIdService activeGetByIdService;
 
     public Active execute(UUID id, ActiveDTO activeDTO) {
@@ -33,7 +30,6 @@ public class ActiveUpdateService {
         active.setEnabled(activeDTO.getEnabled());
         active.setCurrentPrice(activeDTO.getCurrentPrice());
 
-        activeCleanCacheService.execute();
         return stockRepository.save(active);
     }
 

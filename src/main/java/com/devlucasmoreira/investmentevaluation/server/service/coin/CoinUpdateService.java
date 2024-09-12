@@ -7,17 +7,12 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.Coi
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.CoinResponse;
 import com.devlucasmoreira.investmentevaluation.server.repository.CoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
 public class CoinUpdateService {
-
-    @Autowired
-    private CacheManager cacheManager;
 
     @Autowired
     private CoinRepository coinRepository;
@@ -33,7 +28,6 @@ public class CoinUpdateService {
             coin.setCurrentValue(coinRequest.getCurrentValue());
         }
 
-        Objects.requireNonNull(cacheManager.getCache("coinList")).clear();
         return CoinFactory.buildResponse(coinRepository.save(coin));
     }
 

@@ -11,7 +11,6 @@ import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningSu
 import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningSummaryForMonthService;
 import com.devlucasmoreira.investmentevaluation.server.service.earning.EarningSummaryTotalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -57,7 +56,6 @@ public class EarningResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "earningList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EarningResponse>> list(@RequestParam(required = false) String active) {
 
@@ -65,7 +63,6 @@ public class EarningResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "earningSummaryActive")
     @GetMapping(value = "/summary/active", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EarningSummaryDTO>> summaryActive(@Param("active") String active) {
 
@@ -73,7 +70,6 @@ public class EarningResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "earningSummaryMonth")
     @GetMapping(value = "/summary/month", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EarningSummaryDTO>> summaryMonth(
             @Param("month") String month, @Param("sortDirection") String sortDirection) {
@@ -82,7 +78,6 @@ public class EarningResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "earningSummaryTotal")
     @GetMapping(value = "/summary/total", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BigDecimal> earningSummaryTotal() {
 
@@ -90,7 +85,6 @@ public class EarningResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "earningSummaryComplete")
     @GetMapping(value = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EarningSummaryCompleteDTO> earningSummaryComplete() {
 

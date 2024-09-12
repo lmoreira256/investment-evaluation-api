@@ -1,13 +1,12 @@
 package com.devlucasmoreira.investmentevaluation.server.gateway.http;
 
 import com.devlucasmoreira.investmentevaluation.server.enums.ActiveTypeEnum;
-import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveDTO;
+import com.devlucasmoreira.investmentevaluation.server.gateway.model.dto.active.ActiveSummaryDTO;
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.factory.ActiveFactory;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetSummaryService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveListByTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +28,6 @@ public class RealEstateFundResource {
     private ActiveGetSummaryService activeGetSummaryService;
 
     @CrossOrigin
-    @Cacheable(value = "realEstateFundList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ActiveDTO>> list() {
 
@@ -39,7 +37,6 @@ public class RealEstateFundResource {
 
 
     @CrossOrigin
-    @Cacheable(value = "realEstateFundSummary")
     @GetMapping(value = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ActiveSummaryDTO> summary() {
 

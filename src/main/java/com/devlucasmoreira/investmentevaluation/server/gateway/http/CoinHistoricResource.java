@@ -4,7 +4,6 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.Co
 import com.devlucasmoreira.investmentevaluation.server.service.coin.historic.CoinHistoricCreateService;
 import com.devlucasmoreira.investmentevaluation.server.service.coin.historic.CoinHistoricListService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -29,7 +28,6 @@ public class CoinHistoricResource {
     private CoinHistoricCreateService coinHistoricCreateService;
 
     @CrossOrigin
-    @Cacheable("coinHistoricList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<CoinHistoricResponse>> list(
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable

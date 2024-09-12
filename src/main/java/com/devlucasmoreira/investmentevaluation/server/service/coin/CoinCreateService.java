@@ -7,19 +7,13 @@ import com.devlucasmoreira.investmentevaluation.server.gateway.model.request.Coi
 import com.devlucasmoreira.investmentevaluation.server.gateway.model.response.CoinResponse;
 import com.devlucasmoreira.investmentevaluation.server.repository.CoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 public class CoinCreateService {
 
     @Autowired
     private CoinRepository coinRepository;
-
-    @Autowired
-    private CacheManager cacheManager;
 
     public CoinResponse execute(CoinRequest coinRequest) {
         Coin coin = CoinFactory.build(coinRequest);
@@ -28,7 +22,6 @@ public class CoinCreateService {
             throw new CoinAlreadyExistsException();
         }
 
-        Objects.requireNonNull(cacheManager.getCache("coinList")).clear();
         return CoinFactory.buildResponse(coinRepository.save(coin));
     }
 
