@@ -10,6 +10,7 @@ import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetB
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveGetSummaryService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveListService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ActiveUpdateService;
+import com.devlucasmoreira.investmentevaluation.server.service.active.GetActivePercentageService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.GetPortfolioPercentageService;
 import com.devlucasmoreira.investmentevaluation.server.service.active.ListNextActivesToBuyService;
 import org.springframework.cache.annotation.Cacheable;
@@ -40,6 +41,7 @@ public class ActiveResource {
     private final ActiveGetSummaryService activeGetSummaryService;
     private final ListNextActivesToBuyService listNextActivesToBuyService;
     private final GetPortfolioPercentageService getPortfolioPercentageService;
+    private final GetActivePercentageService getActivePercentageService;
 
     ActiveResource(ActiveCreateService activeCreateService,
                    ActiveListService activeListService,
@@ -47,7 +49,8 @@ public class ActiveResource {
                    ActiveGetByIdService activeGetByIdService,
                    ActiveGetSummaryService activeGetSummaryService,
                    ListNextActivesToBuyService listNextActivesToBuyService,
-                   GetPortfolioPercentageService getPortfolioPercentageService) {
+                   GetPortfolioPercentageService getPortfolioPercentageService,
+                   GetActivePercentageService getActivePercentageService) {
         this.activeCreateService = activeCreateService;
         this.activeListService = activeListService;
         this.activeUpdateService = activeUpdateService;
@@ -55,6 +58,7 @@ public class ActiveResource {
         this.activeGetSummaryService = activeGetSummaryService;
         this.listNextActivesToBuyService = listNextActivesToBuyService;
         this.getPortfolioPercentageService = getPortfolioPercentageService;
+        this.getActivePercentageService = getActivePercentageService;
     }
 
     @CrossOrigin
@@ -107,6 +111,13 @@ public class ActiveResource {
     public ResponseEntity<List<KeyValueDTO>> getPortfolioPercentage() {
 
         return new ResponseEntity<>(getPortfolioPercentageService.execute(), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/get-active-percentage", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<KeyValueDTO>> getActivePercentage() {
+
+        return new ResponseEntity<>(getActivePercentageService.execute(), HttpStatus.OK);
     }
 
 }

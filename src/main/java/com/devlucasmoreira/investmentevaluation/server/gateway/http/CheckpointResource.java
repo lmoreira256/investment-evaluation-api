@@ -7,7 +7,6 @@ import com.devlucasmoreira.investmentevaluation.server.service.checkpoint.genera
 import com.devlucasmoreira.investmentevaluation.server.service.checkpoint.real.estate.fund.CheckpointRealEstateFundListService;
 import com.devlucasmoreira.investmentevaluation.server.service.checkpoint.stock.CheckpointStockListService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +42,6 @@ public class CheckpointResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "checkpointList")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CheckpointDTO>> get() {
 
@@ -51,7 +49,6 @@ public class CheckpointResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "stockCheckpointList")
     @GetMapping(value = "/stock", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CheckpointDTO>> getStockList() {
 
@@ -60,7 +57,6 @@ public class CheckpointResource {
     }
 
     @CrossOrigin
-    @Cacheable(value = "realEstateFundCheckpointList")
     @GetMapping(value = "/real-estate-fund", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CheckpointDTO>> getRealEstateFundList() {
 
